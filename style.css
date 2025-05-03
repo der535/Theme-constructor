@@ -27,7 +27,6 @@ textarea {
 textarea::placeholder {
     color: #c8c8c8;
     font-style: italic;
-    font-size: medium;
     font-size: 2.5cqb;
 }
 
@@ -71,6 +70,13 @@ textarea::placeholder {
     color: white;
 }
 
+#video{
+    width: 100%;
+    height: 336px;
+    display: block;
+    padding-top: 20px;
+}
+
 #scenes {
     background-color: #393E46;
     color: white;
@@ -96,6 +102,12 @@ textarea::placeholder {
         width: 100%;
     }
 
+    #video{
+        width: 100%;
+        height: 550px;
+        display: block;
+        padding-top: 20px;
+    }
 
 
     textarea::placeholder {
