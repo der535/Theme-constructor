@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <title>Конструктор тем</title>
 </head>
@@ -9,7 +10,7 @@
 <h1 id="text_constructor_topic" class="center_text">Конструктор тем</h1>
 
 <div id="select_scene">
-    <label class="white_text" for="scenes" id="select_scene_text">Выберите режим:</label>
+    <label class="white_text adaptive_font_size" for="scenes">Выберите режим:</label>
     <select name="scenes" id="scenes">
         <option value="lecture">Лекция</option>
         <option value="news">Новости</option>
@@ -17,12 +18,12 @@
     </select>
 </div>
 
-<textarea id="content" placeholder="Тема сценки..."></textarea>
+<textarea id="content" class="adaptive_font_size" placeholder="Тема сценки..."></textarea>
 <div id="result">
-    <button id="collect_url" onclick="createPaste()">Собрать ссылку</button>
+    <button id="collect_url"  class="adaptive_font_size" onclick="createPaste()">Собрать ссылку</button>
 </div>
 
-<div>
+<div  class="adaptive_font_size">
     <h3 class="white_text center_text">Правила!</h3>
     <ul class="white_text">
         <li>Экстремизм, нацизм, межнациональная/религиозная рознь.</li>
@@ -36,6 +37,11 @@
 <script>
     let resultDivOriginal = document.getElementById('result').innerHTML; // Сохраняем исходный HTML
     let url = ""; // Ссылка на пасту (перемещено выше, чтобы избежать ошибки инициализации)
+    let collect_url = document.getElementById("collect_url");
+    let collect_url_original_text = document.getElementById("collect_url").textContent;
+
+    // // Меняем текст
+    // button.textContent = "Новый текст";
 
     function sleep(millis) {
         const start = Date.now();
@@ -43,21 +49,39 @@
         }
     }
 
-    function copyURL() {
-        navigator.clipboard.writeText(url);
+    async function copyURL() {
+        await navigator.clipboard.writeText(url);
+
+        const original_color = document.getElementById("get_url").style.backgroundColor;
+        const original_text = document.getElementById("get_url").textContent;
+
+        document.getElementById("get_url").style.backgroundColor = "#e6b44e";
+        document.getElementById("get_url").textContent = "Скопировано!";
+        document.getElementById("get_url").disabled = true;
+
+        await new Promise(r => setTimeout(r, 1000));
+
+        document.getElementById("get_url").style.backgroundColor = original_color;
+        document.getElementById("get_url").textContent = original_text;
+        document.getElementById("get_url").disabled = false;
     }
 
     async function createPaste() {
         const text = document.getElementById('content').value;
         let resultDiv = document.getElementById('result');
 
+
         // Восстанавливаем оригинальный HTML и добавляем индикатор загрузки
-        resultDiv.innerHTML = resultDivOriginal + '<img id="loading" src="loading.gif" width="120" height="60"/>';
+        resultDiv.innerHTML = resultDivOriginal + '<img id="loading" src="images/loading.gif"/>';
 
         if (!text) {
-            resultDiv.innerHTML = resultDivOriginal + '<label class="white_text">Где текст?</label>';
+            resultDiv.innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">Где текст?</label>';
             return;
         }
+
+        document.getElementById("collect_url").textContent = "Думаю...";
+        document.getElementById("collect_url").disabled = true;
+        document.getElementById("collect_url").style.backgroundColor = "#282B30FF"; // HEX-код
 
         const e = document.getElementById("scenes");
         const text_post = "!" + e.options[e.selectedIndex].value + " " + text;
@@ -81,15 +105,18 @@
                         .replace(/&amp;/g, '&');
 
                     sleep(1000);
-                    resultDiv.innerHTML = resultDivOriginal + '<button id="get_url" onclick="copyURL()">Скопировать ссылку</button>';
+                    collect_url.textContent = collect_url_original_text;
+                    resultDiv.innerHTML = resultDivOriginal + '<button id="get_url"  class="adaptive_font_size" onclick="copyURL()">Скопировать ссылку</button>';
+                    document.getElementById("collect_url").disabled = false;
+
                 } else {
-                    resultDiv.innerHTML = resultDivOriginal + '<label class="white_text">Ссылка не найдена в ответе</label>';
+                    resultDiv.innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">Ссылка не найдена в ответе</label>';
                 }
             } else {
-                resultDiv.innerHTML = resultDivOriginal + '<label class="white_text">Ошибка при создании пасты:</label>' + response.status;
+                resultDiv.innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">Ошибка при создании пасты:</label>' + response.status;
             }
         } catch (error) {
-            resultDiv.innerHTML = resultDivOriginal + '<label class="white_text">Ошибка сети: ' + error.message + "</label>";
+            resultDiv.innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">Ошибка сети: ' + error.message + "</label>";
         }
     }
 

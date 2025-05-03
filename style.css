@@ -12,27 +12,33 @@ textarea {
     width: 100%;
     height: 200px;
     max-width: 600px;
-    min-width: 600px;
-    min-height: 200px;
-    max-height: 500px;
+    min-height: 400px;
     background-color: #393E46;
     padding: 10px;
     box-sizing: border-box;
     margin: 10px auto;
     display: block;
+    resize: none;
+    text-transform: none; /* Отключите принудительный регистр */
+    font-size: medium;
 }
+
 
 textarea::placeholder {
     color: #c8c8c8;
     font-style: italic;
+    font-size: medium;
+    font-size: 2.5cqb;
 }
 
 .white_text {
     color: white;
+    font-size: 2.5cqb;
 }
 .center_text {
     text-align: center;
 }
+
 
 #collect_url {
     padding: 10px 20px;
@@ -74,20 +80,28 @@ textarea::placeholder {
 
 #loading {
     margin: -20px auto;
+    width: 120px;
+    height: 60px;
 }
 
-
+.adaptive_font_size{
+    font-size: 2.5cqb;
+}
 
 /* Адаптивность для мобильных устройств */
-@media (max-device-width: 659px ) {
+@media (max-device-width: 1080px ) {
     body {
         padding: 10px;
         margin: 10px auto;
         width: 100%;
     }
 
-    #select_scene_text{
-        font-size: large;
+
+
+    textarea::placeholder {
+        color: #c8c8c8;
+        font-style: italic;
+        font-size: 2.5cqb;
     }
 
     #select_scene {
@@ -97,38 +111,34 @@ textarea::placeholder {
         gap: 8px;
     }
 
+    #loading {
+        display: block;
+        padding: 20px;
+        width: 240px;
+        height: 120px;
+    }
+
     #scenes {
         width: 100%;
         padding: 12px;
-        font-size: 16px;
+        font-size: 2.5cqb;
     }
 
     #collect_url, #get_url {
         width: 100%;
         padding: 15px 20px;
         margin: 10px 0;
-        font-size: 16px;
     }
 
     textarea {
-        min-width: 100% !important;
-        max-width: 100% !important;
+        transform-origin: left top; /* Точка масштабирования (чтобы не "съезжал") */
         width: 100%;
-        height: 150px;
-        margin: 10px 0;
+        max-width: 100%;
+        min-width: 100%;
+        min-height: calc(150cqb - 70vw) ;
     }
 
     #result {
         width: 100%;
     }
 }
-
-/*@media (max-width: 450px) {*/
-/*    #text_constructor_topic {*/
-/*        font-size: 1.5em;*/
-/*    }*/
-
-/*    .white_text {*/
-/*        font-size: 14px;*/
-/*    }*/
-/*}*/
