@@ -135,7 +135,7 @@ textarea::placeholder {
         width: 100%;
         max-width: 100%;
         min-width: 100%;
-        min-height: calc(150cqb - 70vw) ;
+        min-height: calc(100cqb - 70vw) ;
     }
 
     #result {
