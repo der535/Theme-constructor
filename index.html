@@ -20,10 +20,10 @@
 
 <textarea id="content" class="adaptive_font_size" placeholder="Тема сценки..."></textarea>
 <div id="result">
-    <button id="collect_url"  class="adaptive_font_size" onclick="createPaste()">Собрать ссылку</button>
+    <button id="collect_url"  class="adaptive_font_size" onclick="createPaste()">Собрать команду</button>
 </div>
 
-<h3 class="white_text center_text">Собранная ссылка действует не больше 5 минут!</h3>
+<h3 class="white_text center_text">Собранная команда действует не больше 5 минут!</h3>
 
 <iframe id="video"  src="https://www.youtube.com/embed/QqPDzIXaRtM?si=5fWNP6X5NPeyNCyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -104,13 +104,19 @@
                 const linkElement = doc.getElementById('link');
 
                 if (linkElement) {
-                    url = linkElement.textContent
+                    const urlString = linkElement.textContent
                         .replace(/&#x2F;/g, '/')
                         .replace(/&amp;/g, '&');
 
+// Создаем объект URL
+                    const urlObj = new URL(urlString);
+                    const pasteId = urlObj.pathname.substring(1);
+
+                    url = "!paste " + pasteId;
+
                     sleep(1000);
                     collect_url.textContent = collect_url_original_text;
-                    resultDiv.innerHTML = resultDivOriginal + '<button id="get_url"  class="adaptive_font_size" onclick="copyURL()">Скопировать ссылку</button>';
+                    resultDiv.innerHTML = resultDivOriginal + '<button id="get_url"  class="adaptive_font_size" onclick="copyURL()">Скопировать команду</button>';
                     document.getElementById("collect_url").disabled = false;
 
                 } else {
