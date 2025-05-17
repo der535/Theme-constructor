@@ -219,12 +219,14 @@
             characters.push(select[select.value].textContent)
         });
 
+        const e = document.getElementById("sceneSelector");
+
         const data = {
             username: document.getElementById("user_name").value,
             characters: characters,
             style: document.getElementById("style").value,
             size: document.getElementById("number_sentences").value,
-            topic: document.getElementById("content").value
+            topic: "!" + e.options[e.selectedIndex].textContent + " " + document.getElementById("content").value
         };
 
         const jsonString = JSON.stringify(data, null, 2); // Красивое форматирование
