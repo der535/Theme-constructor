@@ -8,7 +8,59 @@
     margin: auto;
 }
 
-textarea {
+.role-container {
+    margin: 10px 0;
+}
+
+.role-container label {
+    display: inline-block;
+    min-width: 120px;
+}
+
+.selector {
+    padding: 5px;
+    background: #444;
+    border: 1px solid #666;
+}
+
+#number_sentences{
+    height: 20px;
+    background-color: #393E46;
+}
+
+#style{
+    width: 100%;
+    height: 200px;
+    max-width: 600px;
+    min-height: 200px;
+    background-color: #393E46;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 10px auto;
+    display: block;
+    resize: none;
+    text-transform: none; /* Отключите принудительный регистр */
+    font-size: medium;
+}
+
+#user_name{
+    overflow-x: auto;    /* Горизонтальный скролл при необходимости */
+    overflow-y: hidden;  /* Скрыть вертикальный скролл */
+    white-space: nowrap; /* Запрет переноса текста */
+    resize: none;        /* Отключить изменение размера */
+
+    height: 30px;
+    width: 200px;
+    background-color: #393E46;
+    padding: 10px;
+    margin: 10px auto;
+    resize: none;
+    text-wrap: auto;
+    text-transform: none; /* Отключите принудительный регистр */
+    font-size: 16px;
+}
+
+#content {
     width: 100%;
     height: 200px;
     max-width: 600px;
@@ -24,15 +76,20 @@ textarea {
 }
 
 
-textarea::placeholder {
+.selector{
+    height: 40px;
+    background-color: #393E46;
+}
+
+.placeholder::placeholder {
     color: #c8c8c8;
     font-style: italic;
-    font-size: 2.5cqb;
+    font-size: 14px;
 }
 
 .white_text {
     color: white;
-    font-size: 2.5cqb;
+    font-size: 16px;
 }
 .center_text {
     text-align: center;
@@ -90,10 +147,6 @@ textarea::placeholder {
     height: 60px;
 }
 
-.adaptive_font_size{
-    font-size: 2.5cqb;
-}
-
 /* Адаптивность для мобильных устройств */
 @media (max-device-width: 1080px ) {
     body {
@@ -110,7 +163,7 @@ textarea::placeholder {
     }
 
 
-    textarea::placeholder {
+    #content::placeholder {
         color: #c8c8c8;
         font-style: italic;
         font-size: 2.5cqb;
@@ -142,7 +195,7 @@ textarea::placeholder {
         margin: 10px 0;
     }
 
-    textarea {
+    #content {
         transform-origin: left top; /* Точка масштабирования (чтобы не "съезжал") */
         width: 100%;
         max-width: 100%;

@@ -9,25 +9,37 @@
 <body>
 <h1 id="text_constructor_topic" class="center_text">Конструктор тем</h1>
 
+<textarea id="user_name" class="adaptive_font_size white_text placeholder" wrap="off" placeholder="Ваш ник..."></textarea>
+
 <div id="select_scene">
     <label class="white_text adaptive_font_size" for="scenes">Выберите режим:</label>
-    <select name="scenes" id="scenes">
-        <option value="lecture">Лекция</option>
-        <option value="news">Новости</option>
-        <option value="friends">Друзья</option>
+    <select name="scenes" id="sceneSelector" class="white_text selector" id="scenes">
     </select>
 </div>
 
-<textarea id="content" class="adaptive_font_size" placeholder="Тема сценки..."></textarea>
+
+
+<div id="characterSelectors"></div>
+
+<textarea id="style" class="adaptive_font_size placeholder white_text" placeholder="Особая настройка..."></textarea>
+
+<textarea id="content" class="adaptive_font_size placeholder" placeholder="Тема сценки..."></textarea>
+
+<label class="white_text adaptive_font_size" for="number_sentences">Количество предложений:</label>
+<input id="number_sentences" class="white_text" value=10 type="number" inputmode="numeric" min=1 max=25 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
 <div id="result">
-    <button id="collect_url"  class="adaptive_font_size" onclick="createPaste()">Собрать команду</button>
+    <button id="collect_url" class="adaptive_font_size" onclick="createJson()">Собрать команду</button>
 </div>
 
-<h3 class="white_text center_text">Собранная команда действует не больше 5 минут!</h3>
+<!--<h3 class="white_text center_text">Собранная команда действует не больше 5 минут!</h3>-->
 
-<iframe id="video"  src="https://www.youtube.com/embed/QqPDzIXaRtM?si=5fWNP6X5NPeyNCyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<!--<iframe id="video" src="https://www.youtube.com/embed/QqPDzIXaRtM?si=5fWNP6X5NPeyNCyg" title="YouTube video player"-->
+<!--        frameborder="0"-->
+<!--        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"-->
+<!--        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
 
-<div  class="adaptive_font_size">
+<div class="adaptive_font_size">
     <h3 class="white_text center_text">Тема не должна содержать:</h3>
     <ul class="white_text">
         <li>Экстремизм, нацизм, межнациональная/религиозная рознь.</li>
@@ -43,9 +55,111 @@
     let url = ""; // Ссылка на пасту (перемещено выше, чтобы избежать ошибки инициализации)
     let collect_url = document.getElementById("collect_url");
     let collect_url_original_text = document.getElementById("collect_url").textContent;
+    const sceneSelector = document.getElementById('sceneSelector');
+    let allCharacterSelectors = [];
+    //Json данные
+    let scenes = [];
+    let characters = [];
 
-    // // Меняем текст
-    // button.textContent = "Новый текст";
+    document.getElementById('number_sentences').addEventListener('input', function() {
+        const max = parseFloat(this.max);
+        const value = parseFloat(this.value);
+
+        if (!isNaN(value) && value > max) {
+            this.value = max.toFixed(0); // Округляем до одного знака после точки
+        }
+    });
+
+
+    // Пример загрузки данных
+    Promise.all([
+        fetch('json/scenes.json').then(res => res.json()),
+        fetch('json/characters.json').then(res => res.json())
+    ]).then(([scenesData, charactersData]) => {
+        scenes = scenesData;
+        characters = charactersData;
+
+        const sceneSelector = document.getElementById('sceneSelector');
+
+        // Заполняем список сцен
+        scenes.forEach((scene, index) => {
+            const option = document.createElement('option');
+            option.value = index;  // Сохраняем индекс сцены как значение
+            option.textContent = scene.name;
+            sceneSelector.appendChild(option);
+        });
+
+        // Обработчик изменения выбора сцены
+        sceneSelector.addEventListener('change', function() {
+            const characterSelectors = document.getElementById('characterSelectors');
+            characterSelectors.innerHTML = '';
+            allCharacterSelectors = [];
+
+            const selectedScene = scenes[this.value]; // Получаем выбранную сцену
+
+            // Создаем селекторы для каждой роли в сцене
+            selectedScene.characters.forEach(role => {
+                const container = document.createElement('div');
+                container.className = 'role-container';
+
+                const label = document.createElement('label');
+                label.className = 'white_text';
+                label.textContent = `${role}: `;
+
+                const select = document.createElement('select');
+                select.className = 'selector white_text';
+                select.innerHTML = '<option value="0">-- Выберите персонажа --</option>';
+
+                // Заполняем персонажами
+                characters.forEach(character => {
+                    const option = document.createElement('option');
+                    option.value = character.id;
+                    option.textContent = character.name;
+                    select.appendChild(option);
+                });
+
+                container.appendChild(label);
+                container.appendChild(select);
+                characterSelectors.appendChild(container);
+                allCharacterSelectors.push(select);
+
+                select.addEventListener('change', checkCharacters);
+            });
+        });
+
+        sceneSelector.dispatchEvent(new Event('change'));
+    });
+
+    function checkCharacters() {
+        console.log("Сработало");
+
+        // Собираем все выбранные значения (кроме 0)
+        const values = new Map();
+        allCharacterSelectors.forEach(select => {
+            const value = select.value;
+            if (value !== "0") {
+                values.set(value, (values.get(value) || 0) + 1);
+            }
+        });
+
+        // Находим дубликаты
+        const duplicates = [];
+        for (const [value, count] of values) {
+            if (count > 1) duplicates.push(value);
+        }
+
+        // Сбрасываем дубликаты и нулевые значения не трогаем
+        if (duplicates.length > 0) {
+
+            allCharacterSelectors.forEach(select => {
+                if (duplicates.includes(select.value) && select.value !== "0") {
+                    select.value = "0"; // Сброс на значение по умолчанию
+                    duplicates.splice(select.value, 1);
+                    console.log(`Дубликат найден: ${select.id} сброшен`);
+                }
+            });
+        }
+    }
 
     function sleep(millis) {
         const start = Date.now();
@@ -68,6 +182,28 @@
         document.getElementById("get_url").style.backgroundColor = original_color;
         document.getElementById("get_url").textContent = original_text;
         document.getElementById("get_url").disabled = false;
+    }
+
+    function createJson(){
+
+        const characters = [];
+        allCharacterSelectors.forEach(select => {
+            characters.push(select[select.value].textContent)
+        });
+
+        const data = {
+            username: document.getElementById("user_name").value,
+            characters: characters,
+            style: document.getElementById("style").value,
+            size: document.getElementById("number_sentences").value,
+            topic: document.getElementById("content").value
+        };
+
+        const jsonString = JSON.stringify(data, null, 2); // Красивое форматирование
+
+        console.log(jsonString)
+
+        navigator.clipboard.writeText(jsonString);
     }
 
     async function createPaste() {
