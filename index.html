@@ -19,12 +19,34 @@
 
 <div id="characterSelectors"></div>
 
+
+
+<input type="checkbox" id="manualMode" value="Bike">
+<label for="manualMode" title="1. Гугл внедрил ИИ, который блокирует глупые мысли — 70% пользователей лишились аккаунтов.
+2. В Индии слоны захватили парламент, потребовав пенсию за цирковые выступления.
+3. Netflix выпустил сериал «Как я перестал бояться и полюбил тотальный чип-контроль», но зрителей засудили за пиратство еще до премьеры.
+4. Грузия запатентовала солнце как национальный символ — соседние страны перешли на фонарики.
+5. Минздрав РФ признал лень генетическим заболеванием и начал лечить её поркой." class="white_text"> Ручной режим</label><br>
+
+
+
+
+
+<div class="container">
+        <textarea id="your_scenario" class="placeholder white-text" placeholder="Ваш сценарий..."></textarea>
+</div>
+
+
+
+
 <textarea id="style" class="placeholder white_text" placeholder="Особая настройка..."></textarea>
 
 <textarea id="content" class="placeholder white_text" placeholder="Тема сценки..."></textarea>
 
-<label class="white_text adaptive_font_size" for="number_sentences">Количество предложений:</label>
-<input id="number_sentences" class="white_text" value=10 type="number" inputmode="numeric" min=1 max=25 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+<div id="number_of_offers">
+    <label class="white_text adaptive_font_size" for="number_sentences">Количество предложений:</label>
+    <input id="number_sentences" class="white_text" value=10 type="number" inputmode="numeric" min=1 max=25 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+</div>
 
 <div id="result">
     <button id="collect_url" class="adaptive_font_size" onclick="createJson()">Скопировать json</button>
@@ -71,7 +93,6 @@
             this.value = min; // Округляем
         }
     });
-
 
     // Пример загрузки данных
     Promise.all([
@@ -133,6 +154,38 @@
         sceneSelector.dispatchEvent(new Event('change'));
     });
 
+
+    document.getElementById('manualMode').addEventListener('change', function() {
+        if(this.checked === true) {
+            document.getElementById("style").style.display = "none";
+            document.getElementById("content").style.display = "none";
+            document.getElementById("number_of_offers").style.display= "none";
+
+            document.getElementById("your_scenario").style.display= "block";
+        }
+        else{
+            document.getElementById("style").style.display = "block";
+            document.getElementById("content").style.display = "block";
+            document.getElementById("number_of_offers").style.display= "block";
+
+            document.getElementById("your_scenario").style.display= "none";
+        }
+    });
+
+
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
     function checkCharacters() {
         // Собираем все выбранные значения (кроме 0)
         const values = new Map();
@@ -177,9 +230,18 @@
             }
         }
 
-        if (document.getElementById("content").value.trim() === "")
+        if(document.getElementById("manualMode").checked === false)
         {
-            return "Не указана тема"
+            if (document.getElementById("content").value.trim() === "")
+            {
+                return "Не указана тема"
+            }
+        }
+        else
+        {
+            if (document.getElementById("your_scenario").value.trim() === ""){
+                return "Не указан сценарий"
+            }
         }
 
         return "Подходит"
@@ -226,7 +288,8 @@
             characters: characters,
             style: document.getElementById("style").value,
             size: document.getElementById("number_sentences").value,
-            topic: "!" + e.options[e.selectedIndex].textContent + " " + document.getElementById("content").value
+            topic: "!" + e.options[e.selectedIndex].textContent + " " + document.getElementById("content").value,
+            scenario: document.getElementById("your_scenario").value
         };
 
         const jsonString = JSON.stringify(data, null, 2); // Красивое форматирование

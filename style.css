@@ -43,6 +43,22 @@
     background-color: #393E46;
 }
 
+#your_scenario{
+    color: white;
+    width: 100%;
+    height: 200px;
+    max-width: 600px;
+    min-height: 400px;
+    background-color: #393E46;
+    padding: 10px;
+    margin: 10px auto;
+    display: none;
+    resize: none;
+    font-size: 14px; /* Уже есть в вашем коде */
+    line-height: 1; /* Добавьте это для контроля высоты строки */
+
+}
+
 #style{
     width: 100%;
     height: 200px;

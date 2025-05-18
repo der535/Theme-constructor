@@ -6,9 +6,5 @@
   {
     "name": "Lecture",
     "characters": ["Ведущий"]
-  },
-  {
-    "name": "Friends",
-    "characters": ["Друг 1", "Друг 2", "Друг 3"]
   }
 ]
