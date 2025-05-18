@@ -288,8 +288,9 @@
             characters: characters,
             style: document.getElementById("style").value,
             size: document.getElementById("number_sentences").value,
-            topic: "!" + e.options[e.selectedIndex].textContent + " " + document.getElementById("content").value,
-            scenario: document.getElementById("your_scenario").value
+            topic: document.getElementById("content").value,
+            scenario: document.getElementById("your_scenario").value,
+            scene: e.options[e.selectedIndex].textContent
         };
 
         const jsonString = JSON.stringify(data, null, 2); // Красивое форматирование
