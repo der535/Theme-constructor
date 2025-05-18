@@ -289,7 +289,10 @@
             style: document.getElementById("style").value,
             size: document.getElementById("number_sentences").value,
             topic: document.getElementById("content").value,
-            scenario: document.getElementById("your_scenario").value,
+            scenario: document.getElementById("your_scenario").value
+                .split('\n') // Разбиваем текст на массив строк
+                .map(line => `(${characters[0]}) ${line}`) // Добавляем префикс к каждой строке
+                .join('\n'), // Собираем обратно в строку
             scene: e.options[e.selectedIndex].textContent
         };
 
