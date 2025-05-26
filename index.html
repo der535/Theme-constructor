@@ -9,16 +9,15 @@
 <body>
 <h1 id="text_constructor_topic" class="center_text">Конструктор тем</h1>
 
-<textarea id="user_name" class="white_text placeholder" wrap="off" placeholder="Ваш ник..."></textarea>
+<textarea id="user_name" class="placeholder white_text" wrap="off" placeholder="Ваш ник..."></textarea>
 
 <div id="select_scene">
     <label class="white_text adaptive_font_size" for="scenes">Выберите режим:</label>
-    <select name="scenes" id="sceneSelector" class="white_text selector" id="scenes">
+    <select name="scenes" id="scene_selector" class="white_text selector" id="scenes">
     </select>
 </div>
 
 <div id="characterSelectors"></div>
-
 
 
 <input type="checkbox" id="manualMode" value="Bike">
@@ -29,15 +28,9 @@
 5. Минздрав РФ признал лень генетическим заболеванием и начал лечить её поркой." class="white_text"> Ручной режим</label><br>
 
 
-
-
-
 <div class="container">
         <textarea id="your_scenario" class="placeholder white-text" placeholder="Ваш сценарий..."></textarea>
 </div>
-
-
-
 
 <textarea id="style" class="placeholder white_text" placeholder="Особая настройка..."></textarea>
 
@@ -52,12 +45,19 @@
     <button id="collect_url" class="adaptive_font_size" onclick="createJson()">Скопировать json</button>
 </div>
 
-<!--<h3 class="white_text center_text">Собранная команда действует не больше 5 минут!</h3>-->
 
-<!--<iframe id="video" src="https://www.youtube.com/embed/QqPDzIXaRtM?si=5fWNP6X5NPeyNCyg" title="YouTube video player"-->
-<!--        frameborder="0"-->
-<!--        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"-->
-<!--        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+<br>
+<label id="send_data_text" class="white_text">Отправить данные для генерации:</label>
+<br>
+
+<div id="queue_buttons">
+    <button id="premium_queue" class="black_text" onclick="window.open('https://www.donationalerts.com/r/mrwh1te', '_blank')">Премиум очередь</button>
+    <button id="free_queue" class="black_text" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdyAKibyOKJ7feW517n2ycfExsEHAO1422vv8RLpsvqDWkRiA/viewform?usp=header', '_blank')">Бесплатная очередь</button>
+</div>
+
+<br>
+<br>
+
 
 <div class="adaptive_font_size">
     <h3 class="white_text center_text">Тема не должна содержать:</h3>
@@ -75,7 +75,7 @@
     // let url = ""; // Ссылка на пасту (перемещено выше, чтобы избежать ошибки инициализации)
     // let collect_url = document.getElementById("collect_url");
     // let collect_url_original_text = document.getElementById("collect_url").textContent;
-    // const sceneSelector = document.getElementById('sceneSelector');
+    // const scene_selector = document.getElementById('scene_selector');
     let allCharacterSelectors = [];
     //Json данные
     let scenes = [];
@@ -102,18 +102,18 @@
         scenes = scenesData;
         characters = charactersData;
 
-        const sceneSelector = document.getElementById('sceneSelector');
+        const scene_selector = document.getElementById('scene_selector');
 
         // Заполняем список сцен
         scenes.forEach((scene, index) => {
             const option = document.createElement('option');
             option.value = index;  // Сохраняем индекс сцены как значение
             option.textContent = scene.name;
-            sceneSelector.appendChild(option);
+            scene_selector.appendChild(option);
         });
 
         // Обработчик изменения выбора сцены
-        sceneSelector.addEventListener('change', function() {
+        scene_selector.addEventListener('change', function() {
             const characterSelectors = document.getElementById('characterSelectors');
             characterSelectors.innerHTML = '';
             allCharacterSelectors = [];
@@ -151,7 +151,7 @@
             });
         });
 
-        sceneSelector.dispatchEvent(new Event('change'));
+        scene_selector.dispatchEvent(new Event('change'));
     });
 
 
@@ -171,20 +171,6 @@
             document.getElementById("your_scenario").style.display= "none";
         }
     });
-
-
-    
-    
-    
-    
-    
-    
-
-
-
-
-
-
 
     function checkCharacters() {
         // Собираем все выбранные значения (кроме 0)
@@ -281,7 +267,7 @@
             characters.push(select[select.value].textContent)
         });
 
-        const e = document.getElementById("sceneSelector");
+        const e = document.getElementById("scene_selector");
 
         const data = {
             username: document.getElementById("user_name").value,
