@@ -67,14 +67,45 @@
     <h3 class="white_text center_text">Тема не должна содержать:</h3>
     <ul class="white_text">
         <li>Экстремизм, нацизм, межнациональная/религиозная рознь.</li>
-        <li>Оскорбления (верующих, ветеранов, власти, любых групп).</li>
-        <li>Нелегальные темы (наркотики, оружие, ст. 14.1 КоАП РФ).</li>
+        <li>Оскорбления (верующих, ветеранов, власти, и т.д).</li>
+        <li>Нелегальные темы (наркотики, оружие, и т.д).</li>
         <li>Политика/ЛГБТ.</li>
-        <li>Спам, реклама, абуз символов.</li>
+        <li>Спам, реклама.</li>
     </ul>
+    <label class="white_text">Я буду пропускать темы, которые нарушаю правила</label>
 </div>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>-->
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
+<!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>-->
+
+<!--<textarea id="code" name="code"></textarea>-->
+
+
+
 <script>
+
+
+    // var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    //     lineNumbers: true,
+    //     mode: 'text/x-perl',
+    //     lineWrapping: true,
+    //     theme: 'none',
+    // });
+
+
+
+
+
+
+
+
+
+
+
+
     let resultDivOriginal = document.getElementById('result').innerHTML; // Сохраняем исходный HTML
     // let url = ""; // Ссылка на пасту (перемещено выше, чтобы избежать ошибки инициализации)
     // let collect_url = document.getElementById("collect_url");
@@ -272,19 +303,34 @@
         });
 
         const e = document.getElementById("scene_selector");
+        let data;
 
-        const data = {
-            username: document.getElementById("user_name").value,
-            characters: characters,
-            style: document.getElementById("style").value,
-            size: document.getElementById("number_sentences").value,
-            topic: document.getElementById("content").value,
-            scenario: document.getElementById("your_scenario").value
-                .split('\n') // Разбиваем текст на массив строк
-                .map(line => `(${characters[0]}) ${line}`) // Добавляем префикс к каждой строке
-                .join('\n'), // Собираем обратно в строку
-            scene: e.options[e.selectedIndex].textContent
-        };
+        if(document.getElementById('manualMode').checked){
+            data = {
+                username: document.getElementById("user_name").value,
+                characters: characters,
+                style: "",
+                size: 0,
+                topic: "",
+                scenario: document.getElementById("your_scenario").value
+                    .split('\n') // Разбиваем текст на массив строк
+                    .map(line => `(${characters[0]}) ${line}`) // Добавляем префикс к каждой строке
+                    .join('\n'), // Собираем обратно в строку
+                scene: e.options[e.selectedIndex].textContent
+            };
+        }
+        else {
+            data = {
+                username: document.getElementById("user_name").value,
+                characters: characters,
+                style: document.getElementById("style").value,
+                size: document.getElementById("number_sentences").value,
+                topic: document.getElementById("content").value,
+                scenario: "",
+                scene: e.options[e.selectedIndex].textContent
+            };
+        }
+
 
         const jsonString = JSON.stringify(data, null, 2); // Красивое форматирование
 

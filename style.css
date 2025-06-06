@@ -44,6 +44,75 @@
     text-align: center;
 }
 
+
+
+
+
+
+
+
+
+.CodeMirror {
+    font-family: 'Fira Code', monospace;
+    height: 300px;
+    color: #ffffff !important; /* !important может понадобиться */
+    background: #1e1e1e !important;
+}
+
+/* Для текста внутри редактора */
+.CodeMirror pre {
+    color: inherit !important;
+}
+
+/* Скроллбар */
+.CodeMirror-scrollbar-filler,
+.CodeMirror-gutter-filler {
+    background-color: #2d2d2d !important;
+}
+
+/* Гуттер (нумерация строк) */
+.CodeMirror-gutters {
+    background: #c8c8c8 !important;
+    border-right: 1px solid #c8c8c8;
+}
+
+.CodeMirror-cursor {
+    border-left: 1px solid #ffffff !important;
+    border-right: none;
+    width: 0;
+}
+
+.CodeMirror {
+    font-family: 'Fira Code', monospace;
+    height: 300px;
+    color: #ffffff !important;
+    background: #393e46 !important;
+}
+
+.CodeMirror-gutters {
+    border-right: 1px solid #2f2f2f00 !important;
+    background-color: #f7f7f7;
+    white-space: nowrap;
+    width: 20px;
+}
+
+.CodeMirror-linenumber {
+    padding: 0 3px 0 5px;
+    min-width: 20px;
+    text-align: right;
+    color: #151517 !important;
+    white-space: nowrap;
+    margin-left: -11px;
+}
+
+
+
+
+
+
+
+
+
 #telegramm_button{
     color: black;
     flex: 1;               /* Равномерное распределение пространства */
