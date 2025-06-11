@@ -318,16 +318,18 @@ button{
 
 /* Адаптивность для мобильных устройств */
 @media (max-device-width: 760px ) {
-    body {
-        padding: 10px;
-        margin: 10px auto;
-        width: 100%;
+    html {
+        overflow-x: hidden; /* Скрываем горизонтальные пустоты */
     }
 
-    html, body {
-        padding: 0;
-        overflow-x: hidden;
-        scale: 99% 99%;
+    body {
+        transform: scale(0.80); /* Уменьшаем все элементы на 15% */
+        transform-origin: top left; /* Фиксируем точку трансформации */
+        box-sizing: border-box;
+        width: 125%; /* Компенсируем ширину: 100% / 0.85 ≈ 117.65% */
+        height: 125vh; /* Компенсируем высоту */
+        padding: 5px 5px 5px 5px;
+        overflow: visible; /* Разрешаем контенту выходить за границы */
     }
 
 
@@ -406,9 +408,11 @@ button{
         resize: none;        /* Отключить изменение размера */
 
         display: block;
+        box-sizing: border-box;
 
-        height: 50px;
-        width: 97%;
+
+        height: 70px;
+        width: 100%;
         background-color: #393E46;
         padding: 10px;
         align-self: center;
