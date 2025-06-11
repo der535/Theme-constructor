@@ -31,6 +31,11 @@
         <textarea id="your_scenario" class="placeholder white-text" placeholder="Ваш сценарий..."></textarea>
 </div>
 
+<label for="style_preset_selector" class="white_text">Шаблон особой настройки:</label>
+<select id="style_preset_selector" class="selector white_text">
+    <option value="">-- Выберите шаблон --</option>
+</select>
+
 <textarea id="style" class="placeholder white_text" placeholder="Особая настройка..."></textarea>
 
 <textarea id="content" class="placeholder white_text" placeholder="Тема сценки..."></textarea>
@@ -195,6 +200,32 @@
         });
 
         scene_selector.dispatchEvent(new Event('change'));
+
+        // Загрузка шаблонов стиля
+        fetch('json/style_presets.json')
+            .then(res => res.json())
+            .then(presets => {
+                const presetSelector = document.getElementById('style_preset_selector');
+                presets.forEach(preset => {
+                    const option = document.createElement('option');
+                    option.value = preset.description;
+                    option.textContent = preset.name;
+                    presetSelector.appendChild(option);
+                });
+
+                presetSelector.addEventListener('change', function() {
+                    document.getElementById('style').addEventListener('input', function() {
+                        const selector = document.getElementById('style_preset_selector');
+                        if (selector.selectedIndex !== 0) {
+                            selector.selectedIndex = 0;
+                        }
+                    });
+                    if (this.value !== "") {
+                        document.getElementById('style').value = this.value;
+                    }
+                });
+            })
+            .catch(err => console.error("Ошибка загрузки style_presets.json:", err));
     });
 
 
