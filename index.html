@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0, user-scalable=no">
     <title>Конструктор тем</title>
 </head>
 <body>
@@ -21,11 +22,9 @@
 
 
 <input type="checkbox" id="manualMode" value="Bike">
-<label for="manualMode" title="1. Гугл внедрил ИИ, который блокирует глупые мысли — 70% пользователей лишились аккаунтов.
-2. В Индии слоны захватили парламент, потребовав пенсию за цирковые выступления.
-3. Netflix выпустил сериал «Как я перестал бояться и полюбил тотальный чип-контроль», но зрителей засудили за пиратство еще до премьеры.
-4. Грузия запатентовала солнце как национальный символ — соседние страны перешли на фонарики.
-5. Минздрав РФ признал лень генетическим заболеванием и начал лечить её поркой." class="white_text"> Ручной режим</label><br>
+<label for="manualMode" class="white_text"> Ручной режим</label><br>
+
+
 
 
 <div class="container">
@@ -77,6 +76,7 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
 <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/display/placeholder.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
 <!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>-->
@@ -88,14 +88,22 @@
 <script>
 
 
-    // var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-    //     lineNumbers: true,
-    //     mode: 'text/x-perl',
-    //     lineWrapping: true,
-    //     theme: 'none',
-    // });
-
-
+//    var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+//        lineNumbers: true,
+//        mode: 'text/x-perl',
+//        lineWrapping: true,
+//        theme: 'none',
+//        placeholder: 'Введите код сюда...'  // <-- вот тут
+//    });
+//
+//    editor.on('beforeChange', function (instance, changeObj) {
+//        const currentLines = instance.lineCount();
+//        const newLines = changeObj.text.length - 1;
+//
+//        if (currentLines + newLines - (changeObj.to.line - changeObj.from.line) > 99) {
+//            changeObj.cancel();
+//        }
+//    });
 
 
 
@@ -338,66 +346,6 @@
 
         copyJsonAnimation()
     }
-
-//     async function createPaste() {
-//         const text = document.getElementById('content').value;
-//         let resultDiv = document.getElementById('result');
-//
-//
-//         // Восстанавливаем оригинальный HTML и добавляем индикатор загрузки
-//         resultDiv.innerHTML = resultDivOriginal + '<img id="loading" src="images/loading.gif"/>';
-//
-//         if (!text) {
-//             resultDiv.innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">Где текст?</label>';
-//             return;
-//         }
-//
-//         document.getElementById("collect_url").textContent = "Думаю...";
-//         document.getElementById("collect_url").disabled = true;
-//         document.getElementById("collect_url").style.backgroundColor = "#282B30FF"; // HEX-код
-//
-//         const e = document.getElementById("scenes");
-//         const text_post = "!" + e.options[e.selectedIndex].value + " " + text;
-//
-//         try {
-//             const response = await fetch('https://lesma.eu', {
-//                 method: 'POST',
-//                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-//                 body: new URLSearchParams({lesma: text_post})
-//             });
-//
-//             if (response.ok) {
-//                 const html = await response.text();
-//                 const parser = new DOMParser();
-//                 const doc = parser.parseFromString(html, 'text/html');
-//                 const linkElement = doc.getElementById('link');
-//
-//                 if (linkElement) {
-//                     const urlString = linkElement.textContent
-//                         .replace(/&#x2F;/g, '/')
-//                         .replace(/&amp;/g, '&');
-//
-// // Создаем объект URL
-//                     const urlObj = new URL(urlString);
-//                     const pasteId = urlObj.pathname.substring(1);
-//
-//                     url = "!paste " + pasteId;
-//
-//                     sleep(1000);
-//                     collect_url.textContent = collect_url_original_text;
-//                     resultDiv.innerHTML = resultDivOriginal + '<button id="get_url"  class="adaptive_font_size" onclick="copyJsonAnimation()">Скопировать команду</button>';
-//                     document.getElementById("collect_url").disabled = false;
-//
-//                 } else {
-//                     resultDiv.innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">Ссылка не найдена в ответе</label>';
-//                 }
-//             } else {
-//                 resultDiv.innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">Ошибка при создании пасты:</label>' + response.status;
-//             }
-//         } catch (error) {
-//             resultDiv.innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">Ошибка сети: ' + error.message + "</label>";
-//         }
-//     }
 
 
 </script>
