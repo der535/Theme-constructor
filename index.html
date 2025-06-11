@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,126 +7,109 @@
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0, user-scalable=no">
     <title>Конструктор тем</title>
+    <!-- Добавлены шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1 id="text_constructor_topic" class="center_text">Конструктор тем</h1>
-
-<textarea id="user_name" class="placeholder white_text" wrap="off" placeholder="Ваш ник..."></textarea>
-
-<div id="select_scene">
-    <label class="white_text adaptive_font_size" for="scenes">Выберите режим:</label>
-    <select name="scenes" id="scene_selector" class="white_text selector" id="scenes">
-    </select>
-</div>
-
-<div id="characterSelectors"></div>
-
-
-<input type="checkbox" id="manualMode" value="Bike">
-<label for="manualMode" class="white_text"> Ручной режим</label><br>
-
-
-
-
 <div class="container">
-        <textarea id="your_scenario" class="placeholder white-text" placeholder="Ваш сценарий..."></textarea>
+    <div class="header">
+        <h1 id="text_constructor_topic" class="center_text">Конструктор тем</h1>
+    </div>
+
+    <div class="card">
+        <div class="input-group">
+            <label class="white_text">Ваш ник:</label>
+            <textarea id="user_name" class="placeholder white_text" wrap="off" placeholder="Введите ваш ник..."></textarea>
+        </div>
+
+        <div class="input-group">
+            <label class="white_text adaptive_font_size" for="scenes">Выберите режим:</label>
+            <select name="scenes" id="scene_selector" class="white_text selector"></select>
+        </div>
+
+        <div id="characterSelectors" class="character-grid"></div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="manualMode" value="Bike">
+            <label for="manualMode" class="white_text"> Ручной режим</label>
+        </div>
+
+        <div class="input-group" id="scenario-group">
+            <textarea id="your_scenario" class="placeholder white_text" placeholder="Ваш сценарий..."></textarea>
+        </div>
+
+        <div class="input-group" id="style-preset-group">
+            <label for="style_preset_selector" class="white_text">Шаблон особой настройки:</label>
+            <select id="style_preset_selector" class="selector white_text">
+                <option value="">-- Выберите шаблон --</option>
+            </select>
+        </div>
+
+        <div class="input-group" id="style-group">
+            <textarea id="style" class="placeholder white_text" placeholder="Особая настройка..."></textarea>
+        </div>
+
+        <div class="input-group" id="content-group">
+            <textarea id="content" class="placeholder white_text" placeholder="Тема сценки..."></textarea>
+        </div>
+
+        <div class="input-group" id="number-sentences-group">
+            <label class="white_text adaptive_font_size" for="number_sentences">Количество предложений:</label>
+            <input id="number_sentences" class="white_text" value="10" type="number" inputmode="numeric" min="1" max="25">
+        </div>
+
+        <div id="result" class="result-container">
+            <button id="collect_url" class="adaptive_font_size" onclick="createJson()">Скопировать json</button>
+        </div>
+    </div>
+
+    <div class="card action-section">
+        <label id="send_data_text" class="white_text section-title">Отправить данные для генерации:</label>
+        <div id="queue_buttons" class="button-group">
+            <button id="premium_queue" class="black_text premium-btn" onclick="window.open('https://www.donationalerts.com/r/mrwh1te', '_blank')">Премиум очередь</button>
+            <button id="free_queue" class="black_text free-btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdyAKibyOKJ7feW517n2ycfExsEHAO1422vv8RLpsvqDWkRiA/viewform?usp=header', '_blank')">Бесплатная очередь</button>
+        </div>
+
+        <div class="telegram-section">
+            <label id="watch_scenes" class="white_text section-title">Посмотреть сценки:</label>
+            <button id="telegramm_button" class="black_text telegram-btn" onclick="window.open('https://t.me//ai_smehotron_live', '_blank')">Телеграм канал</button>
+        </div>
+    </div>
+
+    <div class="card rules-section">
+        <h3 class="white_text center_text">Тема не должна содержать:</h3>
+        <ul class="white_text rules-list">
+            <li>Экстремизм, нацизм, межнациональная/религиозная рознь.</li>
+            <li>Оскорбления (верующих, ветеранов, власти, и т.д).</li>
+            <li>Нелегальные темы (наркотики, оружие, и т.д).</li>
+            <li>Политика/ЛГБТ.</li>
+            <li>Спам, реклама.</li>
+        </ul>
+        <div class="warning-note">
+            <label class="white_text">Я буду пропускать темы, которые нарушают правила</label>
+        </div>
+    </div>
 </div>
-
-<label for="style_preset_selector" class="white_text">Шаблон особой настройки:</label>
-<select id="style_preset_selector" class="selector white_text">
-    <option value="">-- Выберите шаблон --</option>
-</select>
-
-<textarea id="style" class="placeholder white_text" placeholder="Особая настройка..."></textarea>
-
-<textarea id="content" class="placeholder white_text" placeholder="Тема сценки..."></textarea>
-
-<div id="number_of_offers">
-    <label class="white_text adaptive_font_size" for="number_sentences">Количество предложений:</label>
-    <input id="number_sentences" class="white_text" value=10 type="number" inputmode="numeric" min=1 max=25 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-</div>
-
-<div id="result">
-    <button id="collect_url" class="adaptive_font_size" onclick="createJson()">Скопировать json</button>
-</div>
-
-
-<br>
-<label id="send_data_text" class="white_text">Отправить данные для генерации:</label>
-<br>
-
-<div id="queue_buttons">
-    <button id="premium_queue" class="black_text" onclick="window.open('https://www.donationalerts.com/r/mrwh1te', '_blank')">Премиум очередь</button>
-    <button id="free_queue" class="black_text" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdyAKibyOKJ7feW517n2ycfExsEHAO1422vv8RLpsvqDWkRiA/viewform?usp=header', '_blank')">Бесплатная очередь</button>
-</div>
-
-<br>
-
-<label id="watch_scenes" class="white_text">Посмотреть сценки:</label>
-<button id="telegramm_button" class="black_text" onclick="window.open('https://t.me//ai_smehotron_live', '_blank')">Телеграм канал</button>
-
-<br>
-
-
-<div class="adaptive_font_size">
-    <h3 class="white_text center_text">Тема не должна содержать:</h3>
-    <ul class="white_text">
-        <li>Экстремизм, нацизм, межнациональная/религиозная рознь.</li>
-        <li>Оскорбления (верующих, ветеранов, власти, и т.д).</li>
-        <li>Нелегальные темы (наркотики, оружие, и т.д).</li>
-        <li>Политика/ЛГБТ.</li>
-        <li>Спам, реклама.</li>
-    </ul>
-    <label class="white_text">Я буду пропускать темы, которые нарушаю правила</label>
-</div>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
-<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/display/placeholder.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
-<!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>-->
-
-<!--<textarea id="code" name="code"></textarea>-->
-
-
 
 <script>
+    // Изначальное скрытие/показ полей
+    function updateFields() {
+        const manual = document.getElementById('manualMode').checked;
+        document.getElementById('scenario-group').style.display = manual ? 'block' : 'none';
+        document.getElementById('style-preset-group').style.display = manual ? 'none' : 'block';
+        document.getElementById('style-group').style.display = manual ? 'none' : 'block';
+        document.getElementById('content-group').style.display = manual ? 'none' : 'block';
+        document.getElementById('number-sentences-group').style.display = manual ? 'none' : 'block';
+    }
 
+    document.getElementById('manualMode').addEventListener('change', updateFields);
+    document.addEventListener('DOMContentLoaded', () => {
+        updateFields();
+    });
 
-//    var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-//        lineNumbers: true,
-//        mode: 'text/x-perl',
-//        lineWrapping: true,
-//        theme: 'none',
-//        placeholder: 'Введите код сюда...'  // <-- вот тут
-//    });
-//
-//    editor.on('beforeChange', function (instance, changeObj) {
-//        const currentLines = instance.lineCount();
-//        const newLines = changeObj.text.length - 1;
-//
-//        if (currentLines + newLines - (changeObj.to.line - changeObj.from.line) > 99) {
-//            changeObj.cancel();
-//        }
-//    });
-
-
-
-
-
-
-
-
-
-
-    let resultDivOriginal = document.getElementById('result').innerHTML; // Сохраняем исходный HTML
-    // let url = ""; // Ссылка на пасту (перемещено выше, чтобы избежать ошибки инициализации)
-    // let collect_url = document.getElementById("collect_url");
-    // let collect_url_original_text = document.getElementById("collect_url").textContent;
-    // const scene_selector = document.getElementById('scene_selector');
+    // Оригинальный JS код
+    let resultDivOriginal = document.getElementById('result').innerHTML;
     let allCharacterSelectors = [];
-    //Json данные
     let scenes = [];
     let characters = [];
 
@@ -133,75 +117,57 @@
         const min = parseFloat(this.min);
         const max = parseFloat(this.max);
         const value = parseFloat(this.value);
-
         if (!isNaN(value) && value > max) {
-            this.value = max.toFixed(0); // Округляем
+            this.value = max.toFixed(0);
         }
         if (!isNaN(value) && value < min) {
-            this.value = min; // Округляем
+            this.value = min;
         }
     });
 
-    // Пример загрузки данных
     Promise.all([
         fetch('json/scenes.json').then(res => res.json()),
         fetch('json/characters.json').then(res => res.json())
     ]).then(([scenesData, charactersData]) => {
         scenes = scenesData;
         characters = charactersData;
-
         const scene_selector = document.getElementById('scene_selector');
-
-        // Заполняем список сцен
         scenes.forEach((scene, index) => {
             const option = document.createElement('option');
-            option.value = index;  // Сохраняем индекс сцены как значение
+            option.value = index;
             option.textContent = scene.name;
             scene_selector.appendChild(option);
         });
-
-        // Обработчик изменения выбора сцены
         scene_selector.addEventListener('change', function() {
             const characterSelectors = document.getElementById('characterSelectors');
             characterSelectors.innerHTML = '';
             allCharacterSelectors = [];
-
-            const selectedScene = scenes[this.value]; // Получаем выбранную сцену
-
-            // Создаем селекторы для каждой роли в сцене
+            const selectedScene = scenes[this.value];
             selectedScene.characters.forEach(role => {
                 const container = document.createElement('div');
                 container.className = 'role-container';
-
                 const label = document.createElement('label');
                 label.className = 'white_text';
                 label.textContent = `${role}: `;
-
                 const select = document.createElement('select');
                 select.className = 'selector white_text';
-                select.id = "character_selector";
+                select.id = 'character_selector';
                 select.innerHTML = '<option value="0">-- Выберите персонажа --</option>';
-
-                // Заполняем персонажами
                 characters.forEach(character => {
                     const option = document.createElement('option');
                     option.value = character.id;
                     option.textContent = character.name;
                     select.appendChild(option);
                 });
-
                 container.appendChild(label);
                 container.appendChild(select);
                 characterSelectors.appendChild(container);
                 allCharacterSelectors.push(select);
-
                 select.addEventListener('change', checkCharacters);
             });
         });
-
         scene_selector.dispatchEvent(new Event('change'));
 
-        // Загрузка шаблонов стиля
         fetch('json/style_presets.json')
             .then(res => res.json())
             .then(presets => {
@@ -212,7 +178,6 @@
                     option.textContent = preset.name;
                     presetSelector.appendChild(option);
                 });
-
                 presetSelector.addEventListener('change', function() {
                     document.getElementById('style').addEventListener('input', function() {
                         const selector = document.getElementById('style_preset_selector');
@@ -228,26 +193,9 @@
             .catch(err => console.error("Ошибка загрузки style_presets.json:", err));
     });
 
-
-    document.getElementById('manualMode').addEventListener('change', function() {
-        if(this.checked === true) {
-            document.getElementById("style").style.display = "none";
-            document.getElementById("content").style.display = "none";
-            document.getElementById("number_of_offers").style.display= "none";
-
-            document.getElementById("your_scenario").style.display= "block";
-        }
-        else{
-            document.getElementById("style").style.display = "block";
-            document.getElementById("content").style.display = "block";
-            document.getElementById("number_of_offers").style.display= "block";
-
-            document.getElementById("your_scenario").style.display= "none";
-        }
-    });
+    document.getElementById('manualMode').addEventListener('change', updateFields);
 
     function checkCharacters() {
-        // Собираем все выбранные значения (кроме 0)
         const values = new Map();
         allCharacterSelectors.forEach(select => {
             const value = select.value;
@@ -255,21 +203,14 @@
                 values.set(value, (values.get(value) || 0) + 1);
             }
         });
-
-        // Находим дубликаты
         const duplicates = [];
         for (const [value, count] of values) {
             if (count > 1) duplicates.push(value);
         }
-
-        // Сбрасываем дубликаты и нулевые значения не трогаем
         if (duplicates.length > 0) {
-
             allCharacterSelectors.forEach(select => {
                 if (duplicates.includes(select.value) && select.value !== "0") {
-                    select.value = "0"; // Сброс на значение по умолчанию
-                    duplicates.splice(select.value, 1);
-                    console.log(`Дубликат найден: ${select.id} сброшен`);
+                    select.value = "0";
                 }
             });
         }
@@ -283,85 +224,67 @@
                 values.set(value, (values.get(value) || 0) + 1);
             }
         });
-
         for (const select of allCharacterSelectors) {
             if (select.value === "0") {
-                return "Не выбран персонаж(и)"
+                return "Не выбран персонаж(и)";
             }
         }
-
-        if(document.getElementById("manualMode").checked === false)
-        {
-            if (document.getElementById("content").value.trim() === "")
-            {
-                return "Не указана тема"
+        if(!document.getElementById("manualMode").checked) {
+            if (document.getElementById("content").value.trim() === "") {
+                return "Не указана тема";
             }
-        }
-        else
-        {
+        } else {
             if (document.getElementById("your_scenario").value.trim() === ""){
-                return "Не указан сценарий"
+                return "Не указан сценарий";
             }
         }
-
-        return "Подходит"
+        return "Подходит";
     }
 
     async function copyJsonAnimation() {
         const original_color = document.getElementById("collect_url").style.backgroundColor;
         const original_text = document.getElementById("collect_url").textContent;
-
-        document.getElementById("collect_url").style.backgroundColor = "#4e90e6";
+        document.getElementById("collect_url").style.backgroundColor = "#2d5b98";
         document.getElementById("collect_url").textContent = "Скопировано!";
         document.getElementById("collect_url").disabled = true;
-
         await new Promise(r => setTimeout(r, 1000));
-
         document.getElementById("collect_url").style.backgroundColor = original_color;
         document.getElementById("collect_url").textContent = original_text;
         document.getElementById("collect_url").disabled = false;
     }
 
-    const text = document.getElementById('content').value;
-    let resultDiv = document.getElementById('result');
-
     function createJson(){
         let result = checkValid();
         if(result !== "Подходит"){
-            if (!text) {
-                resultDiv.innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">' + result +'</label>';
+            if (!document.getElementById('content').value) {
+                document.getElementById('result').innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">' + result +'</label>';
             }
-
             return;
         }
-        resultDiv.innerHTML = resultDivOriginal;
-
-        const characters = [];
+        document.getElementById('result').innerHTML = resultDivOriginal;
+        const charactersList = [];
         allCharacterSelectors.forEach(select => {
-            characters.push(select[select.value].textContent)
+            charactersList.push(select[select.value].textContent);
         });
-
         const e = document.getElementById("scene_selector");
         let data;
-
         if(document.getElementById('manualMode').checked){
             data = {
                 username: document.getElementById("user_name").value,
-                characters: characters,
+                characters: charactersList,
                 style: "",
                 size: 0,
                 topic: "",
                 scenario: document.getElementById("your_scenario").value
-                    .split('\n') // Разбиваем текст на массив строк
-                    .map(line => `(${characters[0]}) ${line}`) // Добавляем префикс к каждой строке
-                    .join('\n'), // Собираем обратно в строку
+                    .split('\n')
+                    .map(line => `(${charactersList[0]}) ${line}`)
+                    .join('\n'),
                 scene: e.options[e.selectedIndex].textContent
             };
-        }
-        else {
+        } else {
             data = {
                 username: document.getElementById("user_name").value,
-                characters: characters,
+                characters: charactersList,
                 style: document.getElementById("style").value,
                 size: document.getElementById("number_sentences").value,
                 topic: document.getElementById("content").value,
@@ -369,16 +292,11 @@
                 scene: e.options[e.selectedIndex].textContent
             };
         }
-
-
-        const jsonString = JSON.stringify(data, null, 2); // Красивое форматирование
-
+        const jsonString = JSON.stringify(data, null, 2);
         navigator.clipboard.writeText(jsonString);
-
-        copyJsonAnimation()
+        copyJsonAnimation();
     }
-
-
 </script>
+
 </body>
 </html>
