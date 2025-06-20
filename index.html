@@ -23,7 +23,7 @@
         </div>
 
         <div class="input-group">
-            <label class="white_text adaptive_font_size" for="scenes">Выберите режим:</label>
+            <label class="white_text adaptive_font_size">Выберите режим:</label>
             <select name="scenes" id="scene_selector" class="white_text selector"></select>
         </div>
 
@@ -255,10 +255,11 @@
 
     function createJson(){
         let result = checkValid();
-        if(result !== "Подходит"){
-            if (!document.getElementById('content').value) {
-                document.getElementById('result').innerHTML = resultDivOriginal + '<label class="white_text" class="adaptive_font_size">' + result +'</label>';
-            }
+        if (result !== "Подходит") {
+            // Всегда показываем ошибку, независимо от типа
+            document.getElementById('result').innerHTML =
+                resultDivOriginal +
+                '<label class="white_text adaptive_font_size">' + result + '</label>';
             return;
         }
         document.getElementById('result').innerHTML = resultDivOriginal;

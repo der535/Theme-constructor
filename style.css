@@ -195,6 +195,15 @@ body {
     max-width: 300px;
     text-align: center;
 }
+
+#free_queue{
+    background: #9ee49e;
+}
+
+#premium_queue{
+    background: #e4d89e;
+}
+
 #premium_queue:hover, #free_queue:hover, #telegramm_button:hover {
     /* Убран эффект подпрыгивания */
     /* transform: translateY(-3px); */
