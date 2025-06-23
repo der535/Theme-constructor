@@ -10,11 +10,13 @@
     --border-radius: 12px;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
 body {
     padding: 20px;
     font-family: 'Montserrat', sans-serif;
@@ -25,15 +27,18 @@ body {
     max-width: 800px;
     margin: 0 auto;
 }
+
 .container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
+
 .header {
     text-align: center;
     margin-bottom: 10px;
 }
+
 .card {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
@@ -41,29 +46,35 @@ body {
     box-shadow: var(--shadow);
     /* Отключено подпрыгивание при наведении: убрана трансформация */
 }
+
 .input-group {
     margin-bottom: 20px;
 }
+
 .input-group label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
     color: var(--text-primary);
 }
+
 .character-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 15px;
     margin: 15px 0;
 }
+
 .role-container {
     background: rgba(255, 255, 255, 0.05);
     padding: 12px;
     border-radius: 8px;
 }
+
 .white_text, .black_text {
     font-size: 16px;
 }
+
 .center_text {
     text-align: center;
     margin: 20px 0;
@@ -74,10 +85,11 @@ body {
     -webkit-text-fill-color: transparent;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 .selector {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #333;
+    border: 2px solid #333;
     border-radius: 8px;
     background-color: #2a2a2a;
     color: var(--text-primary);
@@ -89,15 +101,17 @@ body {
     background-position: right 10px center;
     background-size: 16px;
 }
+
 .selector:focus {
     outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(95, 168, 211, 0.3);
 }
+
 .placeholder {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #333;
+    border: 2px solid #333;
     border-radius: 8px;
     background-color: #2a2a2a;
     color: var(--text-primary);
@@ -107,29 +121,88 @@ body {
     min-height: 100px;
     transition: all 0.3s ease;
 }
+
 .placeholder:focus {
     outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(95, 168, 211, 0.3);
 }
+
 .placeholder::placeholder {
     color: #7a7a7a;
     font-style: italic;
 }
+
+.input-group {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 16px;
+    border-radius: 10px;
+}
+
 #user_name {
     height: 50px;
     min-height: auto;
     resize: none;
 }
 
-#your_scenario, #style, #content {
+.required-star {
+    color: #e89797;
+    margin-left: 4px;
+}
+
+
+.animated-toggle {
+    max-height: 1000px;  /* Достаточно большое значение */
+    overflow: hidden;
+    transition:
+            max-height 0.4s ease-in-out,
+            opacity 0.4s ease-in-out,
+            margin 0.3s ease-in-out,
+            padding 0.3s ease-in-out;
+    opacity: 1;
+    margin-bottom: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.animated-toggle.hidden {
+    max-height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+
+/* Анимация для чекбокса */
+@keyframes checkmark-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+#manualMode:checked {
+    animation: checkmark-pulse 0.3s ease;
+}
+
+
+#style_preset_selector, #style_image_preset_selector, #style_speech_preset_selector {
+    margin-bottom: 5px;
+}
+
+#your_scenario, #style, #style-image, #style-speech #content {
     width: 100%;
     resize: none;
-    height: calc(50cqb - 60vw);
+    height: calc(50cqb - 60vw) !important;
     min-height: 300px;
 }
 
-#style{
+#content{
+    min-height: 300px;
+}
+
+#style, #style-image, #style-speech {
+    height: calc(50cqb - 60vw) !important;
     min-height: 150px;
 }
 
@@ -138,16 +211,19 @@ body {
     align-items: center;
     margin: 20px 0;
 }
+
 #manualMode {
     height: 20px;
     width: 20px;
     margin-right: 10px;
     accent-color: var(--accent-color);
 }
+
 .result-container {
     text-align: center;
     margin-top: 25px;
 }
+
 #collect_url {
     padding: 12px 30px;
     background: var(--accent-color);
@@ -161,16 +237,19 @@ body {
     width: auto;
     display: inline-block;
 }
+
 #collect_url:hover {
     /* Убран эффект подпрыгивания */
     background: var(--accent-dark);
     /* transform: scale(1.05); убрано */
 }
+
 .action-section {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
+
 .section-title {
     font-weight: 600;
     font-size: 18px;
@@ -178,11 +257,13 @@ body {
     display: block;
     text-align: center;
 }
+
 .button-group {
     display: flex;
     gap: 15px;
     justify-content: center;
 }
+
 #premium_queue, #free_queue, #telegramm_button {
     padding: 12px 25px;
     border: none;
@@ -196,11 +277,11 @@ body {
     text-align: center;
 }
 
-#free_queue{
+#free_queue {
     background: #9ee49e;
 }
 
-#premium_queue{
+#premium_queue {
     background: #e4d89e;
 }
 
@@ -209,34 +290,41 @@ body {
     /* transform: translateY(-3px); */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+
 .telegram-btn {
     background: linear-gradient(135deg, #2AABEE, #229ED9);
     color: white;
     margin: 0 auto;
     display: block;
 }
+
 .telegram-section {
     margin-top: 20px;
 }
+
 .rules-section {
     background: rgba(255, 255, 255, 0.05);
     border-left: 4px solid var(--accent-color);
 }
+
 .rules-list {
     padding-left: 25px;
     margin: 15px 0;
 }
+
 .rules-list li {
     margin-bottom: 10px;
     position: relative;
     padding-left: 15px;
 }
+
 .rules-list li::before {
     position: absolute;
     left: 0;
     color: var(--accent-color);
     font-weight: bold;
 }
+
 .warning-note {
     text-align: center;
     padding: 10px;
@@ -246,43 +334,54 @@ body {
     font-style: italic;
     color: #ff5757;
 }
+
 @media (max-width: 768px) {
     body {
         padding: 15px;
     }
+
     .card {
         padding: 20px;
     }
+
     .button-group {
         flex-direction: column;
         align-items: center;
     }
+
     #premium_queue, #free_queue {
         max-width: 100%;
         width: 100%;
     }
+
     .character-grid {
         grid-template-columns: 1fr;
     }
+
     .center_text {
         font-size: 24px;
     }
 }
+
 @media (max-width: 480px) {
     .container {
         gap: 15px;
     }
+
     .card {
         padding: 15px;
     }
+
     .placeholder, .selector {
         padding: 10px 12px;
         font-size: 14px;
     }
+
     #collect_url, #premium_queue, #free_queue, #telegramm_button {
         padding: 10px 20px;
         font-size: 14px;
     }
+
     .center_text {
         font-size: 20px;
     }

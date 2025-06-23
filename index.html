@@ -23,10 +23,16 @@
         </div>
 
         <div class="input-group">
-            <label class="white_text adaptive_font_size">Выберите режим:</label>
+            <label class="white_text adaptive_font_size">Выберите режим:<span class="required-star">*</span></label>
             <select name="scenes" id="scene_selector" class="white_text selector"></select>
         </div>
 
+<!--        <div id="scene_preview_container" class="preview-container">-->
+<!--            <img id="scene_preview" src="" alt="Превью сцены" class="scene-preview hidden">-->
+<!--        </div>-->
+
+
+        <label class="white_text adaptive_font_size">Персонажи:<span class="required-star">*</span></label>
         <div id="characterSelectors" class="character-grid"></div>
 
         <div class="checkbox-group">
@@ -34,29 +40,51 @@
             <label for="manualMode" class="white_text"> Ручной режим</label>
         </div>
 
-        <div class="input-group" id="scenario-group">
+        <div class="input-group animated-toggle" id="content-group">
+            <label class="white_text adaptive_font_size">Тема сценки:<span class="required-star">*</span></label>
+            <textarea id="content" class="placeholder white_text" placeholder="Введите текст..."></textarea>
+        </div>
+
+        <div class="input-group animated-toggle" id="scenario-group">
+            <label class="white_text adaptive_font_size">Cценарий:<span class="required-star">*</span></label>
             <textarea id="your_scenario" class="placeholder white_text" placeholder="Ваш сценарий..."></textarea>
         </div>
 
-        <div class="input-group" id="style-preset-group">
-            <label for="style_preset_selector" class="white_text">Шаблон особой настройки:</label>
+        <div class="input-group animated-toggle" id="number-sentences-group">
+            <label class="white_text adaptive_font_size" for="number_sentences">Количество предложений:<span class="required-star">*</span></label>
+            <input id="number_sentences" class="white_text" value="10" type="number" inputmode="numeric" min="1" max="25">
+        </div>
+
+        <!-- Особая настройка -->
+        <div class="input-group animated-toggle" id="style-group">
+            <label class="white_text adaptive_font_size">Особая настройка сценария:</label>
             <select id="style_preset_selector" class="selector white_text">
                 <option value="">-- Выберите шаблон --</option>
             </select>
+            <textarea id="style" class="placeholder white_text" placeholder="Введите текст..."></textarea>
         </div>
 
-        <div class="input-group" id="style-group">
-            <textarea id="style" class="placeholder white_text" placeholder="Особая настройка..."></textarea>
+        <!-- Настройка картинок -->
+        <div class="input-group animated-toggle">
+            <label class="white_text adaptive_font_size">Особая настройка картинок:</label>
+            <select id="style_image_preset_selector" class="selector white_text">
+                <option value="">-- Выберите шаблон картинки --</option>
+            </select>
+            <textarea id="style-image" class="placeholder white_text" placeholder="Введите текст..."></textarea>
         </div>
 
-        <div class="input-group" id="content-group">
-            <textarea id="content" class="placeholder white_text" placeholder="Тема сценки..."></textarea>
+        <!-- Настройка произношения -->
+        <div class="input-group animated-toggle">
+            <label class="white_text adaptive_font_size">Особая настройка произношения текста:</label>
+            <select id="style_speech_preset_selector" class="selector white_text">
+                <option value="">-- Выберите шаблон произношения --</option>
+            </select>
+            <textarea id="style-speech" class="placeholder white_text" placeholder="Введите текст..."></textarea>
         </div>
 
-        <div class="input-group" id="number-sentences-group">
-            <label class="white_text adaptive_font_size" for="number_sentences">Количество предложений:</label>
-            <input id="number_sentences" class="white_text" value="10" type="number" inputmode="numeric" min="1" max="25">
-        </div>
+
+
+
 
         <div id="result" class="result-container">
             <button id="collect_url" class="adaptive_font_size" onclick="createJson()">Скопировать json</button>
@@ -72,7 +100,7 @@
 
         <div class="telegram-section">
             <label id="watch_scenes" class="white_text section-title">Посмотреть сценки:</label>
-            <button id="telegramm_button" class="black_text telegram-btn" onclick="window.open('https://t.me//ai_smehotron_live', '_blank')">Телеграм канал</button>
+            <button id="telegramm_button" class="black_text telegram-btn" onclick="window.open('https://t.me/ai_smehotron_live', '_blank')">Телеграм канал</button>
         </div>
     </div>
 
@@ -92,28 +120,55 @@
 </div>
 
 <script>
-    // Изначальное скрытие/показ полей
     function updateFields() {
         const manual = document.getElementById('manualMode').checked;
-        document.getElementById('scenario-group').style.display = manual ? 'block' : 'none';
-        document.getElementById('style-preset-group').style.display = manual ? 'none' : 'block';
-        document.getElementById('style-group').style.display = manual ? 'none' : 'block';
-        document.getElementById('content-group').style.display = manual ? 'none' : 'block';
-        document.getElementById('number-sentences-group').style.display = manual ? 'none' : 'block';
+
+        const toggleBlock = (id, show) => {
+            const el = document.getElementById(id);
+            if (show) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        };
+
+        toggleBlock('scenario-group', manual);
+        toggleBlock('style-group', !manual);
+        toggleBlock('number-sentences-group', !manual);
+        toggleBlock('content-group', !manual);
     }
+
+
+
 
     document.getElementById('manualMode').addEventListener('change', updateFields);
     document.addEventListener('DOMContentLoaded', () => {
         updateFields();
+
+        // Настройка всех пресетов
+        setupPresets({
+            jsonPath: 'json/style_presets.json',
+            selectorId: 'style_preset_selector',
+            textareaId: 'style'
+        });
+        setupPresets({
+            jsonPath: 'json/style_image_presets.json',
+            selectorId: 'style_image_preset_selector',
+            textareaId: 'style-image'
+        });
+        setupPresets({
+            jsonPath: 'json/style_speech_presets.json',
+            selectorId: 'style_speech_preset_selector',
+            textareaId: 'style-speech'
+        });
     });
 
-    // Оригинальный JS код
     let resultDivOriginal = document.getElementById('result').innerHTML;
     let allCharacterSelectors = [];
     let scenes = [];
     let characters = [];
 
-    document.getElementById('number_sentences').addEventListener('input', function() {
+    document.getElementById('number_sentences').addEventListener('input', function () {
         const min = parseFloat(this.min);
         const max = parseFloat(this.max);
         const value = parseFloat(this.value);
@@ -138,11 +193,20 @@
             option.textContent = scene.name;
             scene_selector.appendChild(option);
         });
-        scene_selector.addEventListener('change', function() {
+
+        scene_selector.addEventListener('change', function () {
             const characterSelectors = document.getElementById('characterSelectors');
             characterSelectors.innerHTML = '';
             allCharacterSelectors = [];
             const selectedScene = scenes[this.value];
+            const previewImage = document.getElementById('scene_preview');
+            if (selectedScene.preview) {
+                previewImage.src = selectedScene.preview;
+                previewImage.classList.remove('hidden');
+            } else {
+                previewImage.classList.add('hidden');
+            }
+
             selectedScene.characters.forEach(role => {
                 const container = document.createElement('div');
                 container.className = 'role-container';
@@ -166,34 +230,9 @@
                 select.addEventListener('change', checkCharacters);
             });
         });
+
         scene_selector.dispatchEvent(new Event('change'));
-
-        fetch('json/style_presets.json')
-            .then(res => res.json())
-            .then(presets => {
-                const presetSelector = document.getElementById('style_preset_selector');
-                presets.forEach(preset => {
-                    const option = document.createElement('option');
-                    option.value = preset.description;
-                    option.textContent = preset.name;
-                    presetSelector.appendChild(option);
-                });
-                presetSelector.addEventListener('change', function() {
-                    document.getElementById('style').addEventListener('input', function() {
-                        const selector = document.getElementById('style_preset_selector');
-                        if (selector.selectedIndex !== 0) {
-                            selector.selectedIndex = 0;
-                        }
-                    });
-                    if (this.value !== "") {
-                        document.getElementById('style').value = this.value;
-                    }
-                });
-            })
-            .catch(err => console.error("Ошибка загрузки style_presets.json:", err));
     });
-
-    document.getElementById('manualMode').addEventListener('change', updateFields);
 
     function checkCharacters() {
         const values = new Map();
@@ -216,7 +255,7 @@
         }
     }
 
-    function checkValid(){
+    function checkValid() {
         const values = new Map();
         allCharacterSelectors.forEach(select => {
             const value = select.value;
@@ -229,12 +268,12 @@
                 return "Не выбран персонаж(и)";
             }
         }
-        if(!document.getElementById("manualMode").checked) {
+        if (!document.getElementById("manualMode").checked) {
             if (document.getElementById("content").value.trim() === "") {
                 return "Не указана тема";
             }
         } else {
-            if (document.getElementById("your_scenario").value.trim() === ""){
+            if (document.getElementById("your_scenario").value.trim() === "") {
                 return "Не указан сценарий";
             }
         }
@@ -242,21 +281,21 @@
     }
 
     async function copyJsonAnimation() {
-        const original_color = document.getElementById("collect_url").style.backgroundColor;
-        const original_text = document.getElementById("collect_url").textContent;
-        document.getElementById("collect_url").style.backgroundColor = "#2d5b98";
-        document.getElementById("collect_url").textContent = "Скопировано!";
-        document.getElementById("collect_url").disabled = true;
+        const btn = document.getElementById("collect_url");
+        const originalColor = btn.style.backgroundColor;
+        const originalText = btn.textContent;
+        btn.style.backgroundColor = "#2d5b98";
+        btn.textContent = "Скопировано!";
+        btn.disabled = true;
         await new Promise(r => setTimeout(r, 1000));
-        document.getElementById("collect_url").style.backgroundColor = original_color;
-        document.getElementById("collect_url").textContent = original_text;
-        document.getElementById("collect_url").disabled = false;
+        btn.style.backgroundColor = originalColor;
+        btn.textContent = originalText;
+        btn.disabled = false;
     }
 
-    function createJson(){
+    function createJson() {
         let result = checkValid();
         if (result !== "Подходит") {
-            // Всегда показываем ошибку, независимо от типа
             document.getElementById('result').innerHTML =
                 resultDivOriginal +
                 '<label class="white_text adaptive_font_size">' + result + '</label>';
@@ -269,9 +308,17 @@
         });
         const e = document.getElementById("scene_selector");
         let data;
-        if(document.getElementById('manualMode').checked){
+        let user_name;
+        if(document.getElementById("user_name").value === ''){
+            user_name = "Аноним";
+        }
+        else {
+            user_name = document.getElementById("user_name").value;
+        }
+
+        if (document.getElementById('manualMode').checked) {
             data = {
-                username: document.getElementById("user_name").value,
+                username: user_name,
                 characters: charactersList,
                 style: "",
                 size: 0,
@@ -284,9 +331,11 @@
             };
         } else {
             data = {
-                username: document.getElementById("user_name").value,
+                username: user_name,
                 characters: charactersList,
                 style: document.getElementById("style").value,
+                style_image: document.getElementById("style-image").value,
+                style_speech: document.getElementById("style-speech").value,
                 size: document.getElementById("number_sentences").value,
                 topic: document.getElementById("content").value,
                 scenario: "",
@@ -297,7 +346,37 @@
         navigator.clipboard.writeText(jsonString);
         copyJsonAnimation();
     }
+
+    function setupPresets({ jsonPath, selectorId, textareaId }) {
+        fetch(jsonPath)
+            .then(res => res.json())
+            .then(presets => {
+                const selector = document.getElementById(selectorId);
+                presets.forEach(preset => {
+                    const option = document.createElement('option');
+                    option.value = preset.description;
+                    option.textContent = preset.name;
+                    selector.appendChild(option);
+                });
+
+                selector.addEventListener('change', function () {
+                    const textarea = document.getElementById(textareaId);
+                    if (this.value !== "") {
+                        textarea.value = this.value;
+                    }
+                });
+
+                const textarea = document.getElementById(textareaId);
+                textarea.addEventListener('input', function () {
+                    if (selector.selectedIndex !== 0) {
+                        selector.selectedIndex = 0;
+                    }
+                });
+            })
+            .catch(err => console.error(`Ошибка загрузки ${jsonPath}:`, err));
+    }
 </script>
+
 
 </body>
 </html>
