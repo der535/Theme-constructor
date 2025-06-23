@@ -199,13 +199,13 @@
             characterSelectors.innerHTML = '';
             allCharacterSelectors = [];
             const selectedScene = scenes[this.value];
-            const previewImage = document.getElementById('scene_preview');
-            if (selectedScene.preview) {
-                previewImage.src = selectedScene.preview;
-                previewImage.classList.remove('hidden');
-            } else {
-                previewImage.classList.add('hidden');
-            }
+            // const previewImage = document.getElementById('scene_preview');
+            // if (selectedScene.preview) {
+            //     previewImage.src = selectedScene.preview;
+            //     previewImage.classList.remove('hidden');
+            // } else {
+            //     previewImage.classList.add('hidden');
+            // }
 
             selectedScene.characters.forEach(role => {
                 const container = document.createElement('div');
