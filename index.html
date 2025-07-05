@@ -1,14 +1,13 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0, user-scalable=no">
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="style.css"/>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0, user-scalable=no"/>
     <title>Конструктор тем</title>
-    <!-- Добавлены шрифты -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+          rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -16,91 +15,268 @@
         <h1 id="text_constructor_topic" class="center_text">Конструктор тем</h1>
     </div>
 
+    <div class="radio-control input-group" style="box-shadow: var(--shadow)">
+
+
+
+        <div class="radio-panel">
+            <div class="radio-controls">
+
+                <div style="display: flex; width: 100%;">
+                    <div class="white_text simpler_center_text" style="padding-bottom: 10px; font-size: 23px; margin: auto">Радио</div>
+                    <div class="tooltip">
+                        <div class="icon">i</div>
+                        <div class="tooltiptext">Радио, он не несёт смысловой нагрузки, он прость есть...</div>
+                    </div>
+                </div>
+
+
+
+                <div id="radio-container">
+
+                    <div class="radio-track-info" style="display: flex;">
+                        <div id="now-playing" class="white_text">Радио выключено</div>
+                        <button id="next-track" class="radio-button" type="button">⏭</button>
+                    </div>
+
+                    <div class="radio-player">
+                        <audio id="audio-player" controls>
+                            Ваш браузер не поддерживает элемент audio.
+                        </audio>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="card">
         <div class="input-group">
-            <label class="white_text">Ваш ник:</label>
-            <textarea id="user_name" class="placeholder white_text" wrap="off" placeholder="Введите ваш ник..."></textarea>
+            <div style="display: flex; width: 100%;">
+                <label class="white_text">Ваш ник:</label>
+                    <div class="tooltip" style="margin-left: auto;">
+                        <div class="icon">i</div>
+                        <div class="tooltiptext" style="margin-bottom: 1000px">Введите сюда ваш никнейм или Telegram ID, чтобы получить уведомление</div>
+                    </div>
+            </div>
+
+            <textarea
+                    id="user_name"
+                    class="placeholder white_text"
+                    wrap="off"
+                    placeholder="Введите ваш ник..."
+            ></textarea>
         </div>
 
         <div class="input-group">
-            <label class="white_text adaptive_font_size">Выберите режим:<span class="required-star">*</span></label>
-            <select name="scenes" id="scene_selector" class="white_text selector"></select>
+            <!-- После селектора сцен -->
+            <div style="display: flex; width: 100%;">
+                <label class="white_text adaptive_font_size">Выберите режим:<span class="required-star">*</span></label>
+                <div class="tooltip" style="margin-left: auto;">
+                    <div class="icon">i</div>
+                    <div class="tooltiptext">Каждый режим меняет тип контента, стиль подачи и локации в сценке</div>
+                </div>
+            </div>
+
+            <select name="scenes" id="scene_selector" class="white_text selector" type="button"></select>
+
+            <div class="scene-preview">
+                <img id="scene-preview-img" src="" alt="Предпросмотр сцены" style="display:none;">
+                <div id="scene-description" class="scene-description" style="display:none;"></div>
+            </div>
+
         </div>
 
-<!--        <div id="scene_preview_container" class="preview-container">-->
-<!--            <img id="scene_preview" src="" alt="Превью сцены" class="scene-preview hidden">-->
-<!--        </div>-->
+        <div style="display: flex; width: 100%;">
+            <label class="white_text adaptive_font_size">Персонажи:<span class="required-star">*</span></label>
+            <div class="tooltip" style="margin-left: auto;">
+                <div class="icon">i</div>
+                <div class="tooltiptext">Персонажи, которые будут участвовать в сценке</div>
+            </div>
+        </div>
 
-
-        <label class="white_text adaptive_font_size">Персонажи:<span class="required-star">*</span></label>
         <div id="characterSelectors" class="character-grid"></div>
 
-        <div class="checkbox-group">
-            <input type="checkbox" id="manualMode" value="Bike">
-            <label for="manualMode" class="white_text"> Ручной режим</label>
+        <div style="display: flex; width: 100%;">
+            <div class="checkbox-wrapper-4 checkbox-group">
+                <input class="inp-cbx" id="manualMode" type="checkbox">
+                <label class="cbx" for="manualMode"><span>
+            <svg width="12px" height="10px">
+
+            </svg></span><span>Ручной режим</span></label>
+                <svg class="inline-svg">
+                    <symbol id="check-4" viewBox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                    </symbol>
+                </svg>
+            </div>
+            <div class="tooltip" style="margin-left: auto;">
+                <div class="icon">i</div>
+                <div class="tooltiptext">Если галочка выключена, нейросеть сама обработает запрос и сгенерирует сценарий (потребуется указать тему). Если включена — сценарий указывается вручную</div>
+            </div>
         </div>
+
 
         <div class="input-group animated-toggle" id="content-group">
-            <label class="white_text adaptive_font_size">Тема сценки:<span class="required-star">*</span></label>
-            <textarea id="content" class="placeholder white_text" placeholder="Введите текст..."></textarea>
+
+            <div style="display: flex; width: 100%;">
+                <label class="white_text adaptive_font_size">Тема сценки:<span class="required-star">*</span></label>
+                <div class="tooltip" style="margin-left: auto;">
+                    <div class="icon">i</div>
+                    <div class="tooltiptext">Укажите тему сценки здесь, чтобы нейросеть сгенерировала сценарий на её основе</div>
+                </div>
+            </div>
+
+
+            <textarea
+                    id="content"
+                    class="placeholder white_text"
+                    placeholder="Введите текст..."
+            ></textarea>
         </div>
 
+        <!-- Здесь сценарий заменён на контейнер с репликами и кнопкой -->
         <div class="input-group animated-toggle" id="scenario-group">
-            <label class="white_text adaptive_font_size">Cценарий:<span class="required-star">*</span></label>
-            <textarea id="your_scenario" class="placeholder white_text" placeholder="Ваш сценарий..."></textarea>
+
+            <div style="display: flex; width: 100%;">
+                <label class="white_text adaptive_font_size">Сценарий:<span class="required-star">*</span></label>
+                <div class="tooltip" style="margin-left: auto;">
+                    <div class="icon">i</div>
+                    <div class="tooltiptext">Укажите ваш сценарий</div>
+                </div>
+            </div>
+
+
+
+
+            <div id="replica-container"></div>
+            <button id="add-replica" type="button">+ Добавить реплику</button>
         </div>
 
         <div class="input-group animated-toggle" id="number-sentences-group">
-            <label class="white_text adaptive_font_size" for="number_sentences">Количество предложений:<span class="required-star">*</span></label>
-            <input id="number_sentences" class="white_text" value="10" type="number" inputmode="numeric" min="1" max="25">
+
+            <div style="display: flex;">
+                <label class="white_text adaptive_font_size" for="number_sentences_slider">Количество реплик:<span class="required-star">*</span></label>
+                <div class="tooltip" style="margin-left: auto;">
+                    <div class="icon">i</div>
+                    <div class="tooltiptext">Указывает количество реплик которое сгенерирует нейросеть в сценарии</div>
+                </div>
+            </div>
+
+
+
+            <div class="slider-container">
+                <input
+                        id="number_sentences_slider"
+                        type="range"
+                        min="1"
+                        max="25"
+                        value="10"
+                />
+                <span id="number_sentences_value" class="slider-value white_text">10</span>
+            </div>
+            <input
+                    id="number_sentences"
+                    type="hidden"
+                    value="10"
+            />
         </div>
 
         <!-- Особая настройка -->
         <div class="input-group animated-toggle" id="style-group">
-            <label class="white_text adaptive_font_size">Особая настройка сценария:</label>
-            <select id="style_preset_selector" class="selector white_text">
+
+            <div style="display: flex; width: 100%;">
+                <label class="white_text adaptive_font_size">Особая настройка сценария:</label>
+                <div class="tooltip" style="margin-left: auto;">
+                    <div class="icon">i</div>
+                    <div class="tooltiptext">Дополнительный промпт для корректировки генерации сценария</div>
+                </div>
+            </div>
+
+
+
+
+            <select id="style_preset_selector" class="selector white_text" type="button">
                 <option value="">-- Выберите шаблон --</option>
             </select>
-            <textarea id="style" class="placeholder white_text" placeholder="Введите текст..."></textarea>
+            <textarea
+                    id="style"
+                    class="placeholder white_text"
+                    placeholder="Введите текст..."
+            ></textarea>
         </div>
 
         <!-- Настройка картинок -->
-        <div class="input-group animated-toggle">
-            <label class="white_text adaptive_font_size">Особая настройка картинок:</label>
-            <select id="style_image_preset_selector" class="selector white_text">
+        <div id="image-style-group" class="input-group animated-toggle">
+
+            <div style="display: flex; width: 100%;">
+                <label class="white_text adaptive_font_size">Особая настройка изображений:</label>
+                <div class="tooltip" style="margin-left: auto;">
+                    <div class="icon">i</div>
+                    <div class="tooltiptext">Дополнительный промпт для корректировки генерации изображений</div>
+                </div>
+            </div>
+
+
+
+
+            <select id="style_image_preset_selector" class="selector white_text" type="button">
                 <option value="">-- Выберите шаблон картинки --</option>
             </select>
-            <textarea id="style-image" class="placeholder white_text" placeholder="Введите текст..."></textarea>
+            <textarea
+                    id="style-image"
+                    class="placeholder white_text"
+                    placeholder="Введите текст..."
+            ></textarea>
         </div>
-
-        <!-- Настройка произношения -->
-        <div class="input-group animated-toggle">
-            <label class="white_text adaptive_font_size">Особая настройка произношения текста:</label>
-            <select id="style_speech_preset_selector" class="selector white_text">
-                <option value="">-- Выберите шаблон произношения --</option>
-            </select>
-            <textarea id="style-speech" class="placeholder white_text" placeholder="Введите текст..."></textarea>
-        </div>
-
-
-
-
 
         <div id="result" class="result-container">
-            <button id="collect_url" class="adaptive_font_size" onclick="createJson()">Скопировать json</button>
+            <button
+                    id="collect_url"
+                    class="adaptive_font_size"
+                    onclick="createJson()"
+            >
+                Скопировать json
+            </button>
+            <button
+                    id="reset_form"
+                    class="adaptive_font_size reset-btn"
+            >
+                Очистить все
+            </button>
         </div>
     </div>
 
     <div class="card action-section">
         <label id="send_data_text" class="white_text section-title">Отправить данные для генерации:</label>
         <div id="queue_buttons" class="button-group">
-            <button id="premium_queue" class="black_text premium-btn" onclick="window.open('https://www.donationalerts.com/r/mrwh1te', '_blank')">Премиум очередь</button>
-            <button id="free_queue" class="black_text free-btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdyAKibyOKJ7feW517n2ycfExsEHAO1422vv8RLpsvqDWkRiA/viewform?usp=header', '_blank')">Бесплатная очередь</button>
+            <button
+                    id="premium_queue"
+                    class="black_text premium-btn"
+                    onclick="window.open('https://www.donationalerts.com/r/mrwh1te', '_blank')"
+            >
+                Премиум очередь
+            </button>
+            <button
+                    id="free_queue"
+                    class="black_text free-btn"
+                    onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdyAKibyOKJ7feW517n2ycfExsEHAO1422vv8RLpsvqDWkRiA/viewform?usp=header', '_blank')"
+            >
+                Бесплатная очередь
+            </button>
         </div>
 
         <div class="telegram-section">
-            <label id="watch_scenes" class="white_text section-title">Посмотреть сценки:</label>
-            <button id="telegramm_button" class="black_text telegram-btn" onclick="window.open('https://t.me/ai_smehotron_live', '_blank')">Телеграм канал</button>
+            <label id="watch_scenes" class="white_text section-title"
+            >Посмотреть сценки:</label>
+            <button
+                    id="telegramm_button"
+                    class="black_text telegram-btn"
+                    onclick="window.open('https://t.me/ai_smehotron_live', '_blank')"
+            >
+                Телеграм канал
+            </button>
         </div>
     </div>
 
@@ -120,263 +296,700 @@
 </div>
 
 <script>
-    function updateFields() {
-        const manual = document.getElementById('manualMode').checked;
-
-        const toggleBlock = (id, show) => {
-            const el = document.getElementById(id);
-            if (show) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
-            }
-        };
-
-        toggleBlock('scenario-group', manual);
-        toggleBlock('style-group', !manual);
-        toggleBlock('number-sentences-group', !manual);
-        toggleBlock('content-group', !manual);
-    }
-
-
-
-
-    document.getElementById('manualMode').addEventListener('change', updateFields);
-    document.addEventListener('DOMContentLoaded', () => {
-        updateFields();
-
-        // Настройка всех пресетов
-        setupPresets({
-            jsonPath: 'json/style_presets.json',
-            selectorId: 'style_preset_selector',
-            textareaId: 'style'
-        });
-        setupPresets({
-            jsonPath: 'json/style_image_presets.json',
-            selectorId: 'style_image_preset_selector',
-            textareaId: 'style-image'
-        });
-        setupPresets({
-            jsonPath: 'json/style_speech_presets.json',
-            selectorId: 'style_speech_preset_selector',
-            textareaId: 'style-speech'
-        });
-    });
-
-    let resultDivOriginal = document.getElementById('result').innerHTML;
-    let allCharacterSelectors = [];
+    // Переменные для персонажей и сцен (загрузятся позже)
     let scenes = [];
     let characters = [];
+    let allCharacterSelectors = [];
 
-    document.getElementById('number_sentences').addEventListener('input', function () {
-        const min = parseFloat(this.min);
-        const max = parseFloat(this.max);
-        const value = parseFloat(this.value);
-        if (!isNaN(value) && value > max) {
-            this.value = max.toFixed(0);
-        }
-        if (!isNaN(value) && value < min) {
-            this.value = min;
-        }
-    });
+    // Для подсчёта реплик
+    let replicaCount = 0;
 
-    Promise.all([
-        fetch('json/scenes.json').then(res => res.json()),
-        fetch('json/characters.json').then(res => res.json())
-    ]).then(([scenesData, charactersData]) => {
-        scenes = scenesData;
-        characters = charactersData;
-        const scene_selector = document.getElementById('scene_selector');
-        scenes.forEach((scene, index) => {
-            const option = document.createElement('option');
-            option.value = index;
+    // Инициализация выбора сцены и персонажей
+    fetch("json/scenes.json")
+        .then((res) => res.json())
+        .then((scenesData) => {
+            scenes = scenesData;
+            return fetch("json/characters.json");
+        })
+        .then((res) => res.json())
+        .then((charactersData) => {
+            characters = charactersData;
+            setupSceneSelector();
+        });
+
+    function setupSceneSelector() {
+        const sceneSelector = document.getElementById("scene_selector");
+        document.getElementById("image-style-group").style.display = "none";
+
+        // Очищаем селектор перед заполнением
+        sceneSelector.innerHTML = '';
+
+        // Заполняем селектор опциями
+        scenes.forEach((scene, idx) => {
+            const option = document.createElement("option");
+            option.value = idx;
             option.textContent = scene.name;
-            scene_selector.appendChild(option);
+            sceneSelector.appendChild(option);
         });
 
-        scene_selector.addEventListener('change', function () {
-            const characterSelectors = document.getElementById('characterSelectors');
-            characterSelectors.innerHTML = '';
-            allCharacterSelectors = [];
-            const selectedScene = scenes[this.value];
-            // const previewImage = document.getElementById('scene_preview');
-            // if (selectedScene.preview) {
-            //     previewImage.src = selectedScene.preview;
-            //     previewImage.classList.remove('hidden');
-            // } else {
-            //     previewImage.classList.add('hidden');
-            // }
+        // Обработчик изменения выбора сцены
+        sceneSelector.addEventListener("change", () => {
+            const sceneIndex = sceneSelector.value;
+            if (sceneIndex !== "") {
+                const scene = scenes[sceneIndex];
+                const previewImg = document.getElementById("scene-preview-img");
+                const descElement = document.getElementById("scene-description");
+                const imageStyleGroup = document.getElementById("image-style-group");
 
-            selectedScene.characters.forEach(role => {
-                const container = document.createElement('div');
-                container.className = 'role-container';
-                const label = document.createElement('label');
-                label.className = 'white_text';
-                label.textContent = `${role}: `;
-                const select = document.createElement('select');
-                select.className = 'selector white_text';
-                select.id = 'character_selector';
-                select.innerHTML = '<option value="0">-- Выберите персонажа --</option>';
-                characters.forEach(character => {
-                    const option = document.createElement('option');
-                    option.value = character.id;
-                    option.textContent = character.name;
-                    select.appendChild(option);
-                });
-                container.appendChild(label);
-                container.appendChild(select);
-                characterSelectors.appendChild(container);
-                allCharacterSelectors.push(select);
-                select.addEventListener('change', checkCharacters);
-            });
+                if (scene.image) {
+                    previewImg.src = scene.image;
+                    previewImg.style.display = "block";
+                } else {
+                    previewImg.style.display = "none";
+                }
+
+                if (scene.description) {
+                    descElement.textContent = scene.description;
+                    descElement.style.display = "block";
+                } else {
+                    descElement.style.display = "none";
+                }
+
+                if (scene.picture_style === false) {
+                    imageStyleGroup.style.display = "none";
+                } else {
+                    imageStyleGroup.style.display = "block";
+                }
+            } else {
+                document.getElementById("scene-preview-img").style.display = "none";
+                document.getElementById("scene-description").style.display = "none";
+                document.getElementById("image-style-group").style.display = "none";
+            }
+
+            setupCharacterSelectors();
+            clearReplicas();
+            updateReplicaCharacterSelectors();
+            createReplicaRow();
         });
 
-        scene_selector.dispatchEvent(new Event('change'));
+        // Инициируем событие change для первоначальной настройки
+        sceneSelector.dispatchEvent(new Event("change"));
+    }
+
+    // Обновление значения слайдера
+    const slider = document.getElementById('number_sentences_slider');
+    const valueDisplay = document.getElementById('number_sentences_value');
+    const hiddenInput = document.getElementById('number_sentences');
+
+
+    slider.addEventListener('input', function () {
+        const value = this.value;
+        valueDisplay.textContent = value;
+        hiddenInput.value = value;
     });
 
-    function checkCharacters() {
-        const values = new Map();
+    // Инициализация при загрузке
+    valueDisplay.textContent = slider.value;
+
+    // Функция для полного сброса формы
+    function resetForm() {
+        // 1. Очищаем поле ника
+        document.getElementById('user_name').value = '';
+
+        // Скрываем блок настроек изображений
+        document.getElementById("image-style-group").style.display = "none";
+
+        // 2. Сбрасываем выбор сцены
+        const sceneSelector = document.getElementById('scene_selector');
+        sceneSelector.value = 0;
+        sceneSelector.dispatchEvent(new Event('change'));
+
+        // 3. Сбрасываем персонажей
         allCharacterSelectors.forEach(select => {
-            const value = select.value;
-            if (value !== "0") {
-                values.set(value, (values.get(value) || 0) + 1);
+            select.value = '';
+            const avatar = select.nextElementSibling;
+            if (avatar && avatar.classList.contains('character-avatar')) {
+                avatar.style.display = 'none';
             }
         });
-        const duplicates = [];
-        for (const [value, count] of values) {
-            if (count > 1) duplicates.push(value);
-        }
-        if (duplicates.length > 0) {
-            allCharacterSelectors.forEach(select => {
-                if (duplicates.includes(select.value) && select.value !== "0") {
-                    select.value = "0";
-                }
+
+        // 4. Сбрасываем ручной режим
+        document.getElementById('manualMode').checked = false;
+        updateFields();
+
+        // 5. Очищаем поля ввода
+        document.getElementById('content').value = '';
+        document.getElementById('style').value = '';
+        document.getElementById('style-image').value = '';
+
+        // 6. Сбрасываем реплики
+        clearReplicas();
+        createReplicaRow();
+
+        // 7. Сбрасываем слайдер
+        const slider = document.getElementById('number_sentences_slider');
+        slider.value = 10;
+        document.getElementById('number_sentences_value').textContent = '10';
+        document.getElementById('number_sentences').value = '10';
+
+        // 8. Сбрасываем шаблоны
+        document.getElementById('style_preset_selector').selectedIndex = 0;
+        document.getElementById('style_image_preset_selector').selectedIndex = 0;
+
+        // 9. Убираем ошибки дублирования
+        allCharacterSelectors.forEach(select => {
+            select.classList.remove('duplicate-error');
+        });
+
+        alert('Все поля сброшены!');
+    }
+
+    // Вешаем обработчик на кнопку
+    document.getElementById('reset_form').addEventListener('click', resetForm);
+
+    function setupCharacterSelectors() {
+        const container = document.getElementById("characterSelectors");
+        container.innerHTML = "";
+        allCharacterSelectors = [];
+
+        const sceneIndex = document.getElementById("scene_selector").value;
+        if (sceneIndex === "") return;
+
+        const scene = scenes[sceneIndex];
+        if (!scene) return;
+
+        scene.characters.forEach((role, idx) => {
+            const div = document.createElement("div");
+            div.className = "role-container";
+
+            const label = document.createElement("label");
+            label.className = "white_text";
+            label.textContent = `${role}: `;
+
+            // Контейнер для селектора и аватара
+            const selectorContainer = document.createElement("div");
+            selectorContainer.className = "character-selector";
+
+            const select = document.createElement("select");
+            select.className = "selector white_text";
+            select.dataset.roleIndex = idx;
+
+            // Первый option - "Не выбран"
+            select.innerHTML = '<option value="">-- Выберите персонажа --</option>';
+
+            characters.forEach((ch) => {
+                const option = document.createElement("option");
+                option.value = ch.name;
+                option.textContent = ch.name;
+                // Сохраняем путь к изображению
+                option.dataset.image = ch.image;
+                select.appendChild(option);
             });
-        }
-    }
 
-    function checkValid() {
-        const values = new Map();
-        allCharacterSelectors.forEach(select => {
-            const value = select.value;
-            if (value !== "0") {
-                values.set(value, (values.get(value) || 0) + 1);
-            }
+            // Элемент для аватара
+            const avatar = document.createElement("img");
+            avatar.className = "character-avatar";
+            avatar.src = "";
+            avatar.alt = "Аватар персонажа";
+            avatar.style.display = "none";
+
+            select.addEventListener("change", function () {
+                allCharacterSelectors.forEach(sel => sel.classList.remove("duplicate-error"));
+
+                // Проверка дубликатов
+                if (checkForDuplicateCharacters()) {
+                    alert("Один и тот же персонаж не может быть выбран дважды!");
+                    this.value = "";
+                    this.classList.remove("duplicate-error");
+
+                    // Скрыть аватар
+                    const avatar = this.nextElementSibling;
+                    if (avatar && avatar.classList.contains("character-avatar")) {
+                        avatar.style.display = "none";
+                    }
+                    return;
+                }
+
+                if (this.value) {
+                    const character = characters.find(c => c.name === this.value);
+                    if (character && character.image) {
+                        avatar.src = character.image;
+                        avatar.style.display = "block";
+                    } else {
+                        avatar.style.display = "none";
+                    }
+                } else {
+                    avatar.style.display = "none";
+                }
+                updateReplicaCharacterOptions();
+            });
+
+            selectorContainer.appendChild(select);
+            selectorContainer.appendChild(avatar);
+
+            div.appendChild(label);
+            div.appendChild(selectorContainer);
+            container.appendChild(div);
+            allCharacterSelectors.push(select);
         });
-        for (const select of allCharacterSelectors) {
-            if (select.value === "0") {
-                return "Не выбран персонаж(и)";
-            }
-        }
-        if (!document.getElementById("manualMode").checked) {
-            if (document.getElementById("content").value.trim() === "") {
-                return "Не указана тема";
-            }
-        } else {
-            if (document.getElementById("your_scenario").value.trim() === "") {
-                return "Не указан сценарий";
-            }
-        }
-        return "Подходит";
     }
 
-    async function copyJsonAnimation() {
-        const btn = document.getElementById("collect_url");
-        const originalColor = btn.style.backgroundColor;
-        const originalText = btn.textContent;
-        btn.style.backgroundColor = "#2d5b98";
-        btn.textContent = "Скопировано!";
-        btn.disabled = true;
-        await new Promise(r => setTimeout(r, 1000));
-        btn.style.backgroundColor = originalColor;
-        btn.textContent = originalText;
-        btn.disabled = false;
-    }
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        // Загрузка шаблонов для сценария
+        loadPresets('json/style_presets.json', 'style_preset_selector', 'style');
 
-    function createJson() {
-        let result = checkValid();
-        if (result !== "Подходит") {
-            document.getElementById('result').innerHTML =
-                resultDivOriginal +
-                '<label class="white_text adaptive_font_size">' + result + '</label>';
-            return;
-        }
-        document.getElementById('result').innerHTML = resultDivOriginal;
-        const charactersList = [];
-        allCharacterSelectors.forEach(select => {
-            charactersList.push(select[select.value].textContent);
-        });
-        const e = document.getElementById("scene_selector");
-        let data;
-        let user_name;
-        if(document.getElementById("user_name").value === ''){
-            user_name = "Аноним";
-        }
-        else {
-            user_name = document.getElementById("user_name").value;
-        }
+        // Загрузка шаблонов для картинок
+        loadPresets('json/style_image_presets.json', 'style_image_preset_selector', 'style-image');
+    });
 
-        if (document.getElementById('manualMode').checked) {
-            data = {
-                username: user_name,
-                characters: charactersList,
-                style: "",
-                size: 0,
-                topic: "",
-                scenario: document.getElementById("your_scenario").value
-                    .split('\n')
-                    .map(line => `(${charactersList[0]}) ${line}`)
-                    .join('\n'),
-                scene: e.options[e.selectedIndex].textContent
-            };
-        } else {
-            data = {
-                username: user_name,
-                characters: charactersList,
-                style: document.getElementById("style").value,
-                style_image: document.getElementById("style-image").value,
-                style_speech: document.getElementById("style-speech").value,
-                size: document.getElementById("number_sentences").value,
-                topic: document.getElementById("content").value,
-                scenario: "",
-                scene: e.options[e.selectedIndex].textContent
-            };
-        }
-        const jsonString = JSON.stringify(data, null, 2);
-        navigator.clipboard.writeText(jsonString);
-        copyJsonAnimation();
-    }
-
-    function setupPresets({ jsonPath, selectorId, textareaId }) {
-        fetch(jsonPath)
-            .then(res => res.json())
+    // Функция для загрузки и инициализации шаблонов
+    function loadPresets(url, selectorId) {
+        fetch(url)
+            .then(response => response.json())
             .then(presets => {
                 const selector = document.getElementById(selectorId);
+                // Очищаем существующие опции (кроме первой)
+                while (selector.options.length > 1) {
+                    selector.remove(1);
+                }
+
+                // Добавляем новые опции
                 presets.forEach(preset => {
-                    const option = document.createElement('option');
-                    option.value = preset.description;
-                    option.textContent = preset.name;
-                    selector.appendChild(option);
-                });
-
-                selector.addEventListener('change', function () {
-                    const textarea = document.getElementById(textareaId);
-                    if (this.value !== "") {
-                        textarea.value = this.value;
-                    }
-                });
-
-                const textarea = document.getElementById(textareaId);
-                textarea.addEventListener('input', function () {
-                    if (selector.selectedIndex !== 0) {
-                        selector.selectedIndex = 0;
-                    }
+                    const option = new Option(preset.name, preset.name);
+                    // Используем description вместо text
+                    option.dataset.description = preset.description;
+                    selector.add(option);
                 });
             })
-            .catch(err => console.error(`Ошибка загрузки ${jsonPath}:`, err));
+            .catch(error => console.error(`Ошибка загрузки ${url}:`, error));
+    }
+
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        // Загрузка шаблонов для сценария
+        loadPresets('json/style_presets.json', 'style_preset_selector');
+
+        // Загрузка шаблонов для картинок
+        loadPresets('json/style_image_presets.json', 'style_image_preset_selector');
+    });
+    // Обработчики для вставки описания
+    document.getElementById('style_preset_selector').addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const textarea = document.getElementById('style');
+
+        if (selectedOption.value && selectedOption.dataset.description) {
+            textarea.value = selectedOption.dataset.description;
+        } else {
+            textarea.value = '';
+        }
+    });
+
+    document.getElementById('style_image_preset_selector').addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const textarea = document.getElementById('style-image');
+
+        if (selectedOption.value && selectedOption.dataset.description) {
+            textarea.value = selectedOption.dataset.description;
+        } else {
+            textarea.value = '';
+        }
+    });
+
+    // РАДИО -----
+    let radioTracks = [];
+    let currentTrackIndex = -1;
+    const audioPlayer = document.getElementById('audio-player');
+
+    // Загрузка треков из JSON файла
+    function loadRadioTracks() {
+        fetch('radio_tracks.json')
+            .then(response => response.json())
+            .then(tracks => {
+                radioTracks = tracks;
+                console.log('Треки радио загружены:', tracks.length);
+
+                if (radioTracks.length > 0) {
+                    // Начальная загрузка случайного трека
+                    const randomIndex = Math.floor(Math.random() * radioTracks.length);
+                    playTrack(randomIndex);
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка загрузки треков:', error);
+                document.getElementById("now-playing").textContent = "Ошибка загрузки треков";
+            });
+    }
+
+    function getTrackName(path) {
+        return path.split('/').pop().replace('.mp3', '');
+    }
+
+    function playTrack(index) {
+        if (index < 0 || index >= radioTracks.length) return;
+
+        currentTrackIndex = index;
+        const trackPath = radioTracks[index];
+
+        // Проверка на тот же трек
+        if (!audioPlayer.src.endsWith(trackPath)) {
+            audioPlayer.src = trackPath;
+        } else {
+            audioPlayer.currentTime = 0; // Перезапуск если тот же трек
+        }
+
+        document.getElementById("now-playing").textContent = "Сейчас играет: " + getTrackName(trackPath);
+    }
+
+    audioPlayer.addEventListener('ended', () => {
+        playRandomTrack();
+    });
+
+    function playRandomTrack() {
+        const newIndex = getRandomTrackIndex(currentTrackIndex);
+        playTrack(newIndex);
+        audioPlayer.play().catch(e => console.error("Ошибка воспроизведения:", e));
+    }
+
+
+    function playNextTrack() {
+        playRandomTrack();
+    }
+
+
+    window.addEventListener("DOMContentLoaded", () => {
+        loadRadioTracks();
+
+        // Обработчики кнопок
+        document.getElementById("next-track").addEventListener("click", playNextTrack);
+    });
+
+    // РАДИО -----
+    // Обновляет в каждой реплике выпадающий список персонажей согласно выбранным сверху
+    function updateReplicaCharacterOptions() {
+        // Получаем список выбранных персонажей (имена)
+        const selectedNames = allCharacterSelectors
+            .map((sel) => sel.value)
+            .filter((v) => v !== "");
+
+        // Если никого не выбрали, создаём дефолтные имена
+        const names =
+            selectedNames.length > 0
+                ? selectedNames
+                : ["Персонаж 1", "Персонаж 2", "Персонаж 3"];
+
+        // Обновляем опции в каждом select внутри реплик
+        const replicaRows = document.querySelectorAll("#replica-container .replica-row");
+        replicaRows.forEach((row) => {
+            const select = row.querySelector("select");
+            const currentValue = select.value;
+
+            // Сохраним выделенное имя, если оно осталось в списке
+            select.innerHTML = "";
+            names.forEach((name) => {
+                const option = document.createElement("option");
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+            });
+
+            // Если текущее значение осталось — оставим его
+            if (names.includes(currentValue)) {
+                select.value = currentValue;
+            } else {
+                select.value = names[0];
+            }
+        });
+    }
+
+    function clearReplicas() {
+        const container = document.getElementById("replica-container");
+        container.innerHTML = "";
+        replicaCount = 0;
+    }
+
+    function createReplicaRow() {
+        const container = document.getElementById("replica-container");
+
+        const row = document.createElement("div");
+        row.className = "replica-row";
+        row.dataset.index = replicaCount++;
+
+        const inputs = document.createElement("div");
+        const number_line = document.createElement("div");
+        number_line.style.width = "100%";
+        number_line.style.display = "flex";
+
+        // Номер реплики
+        const numberLabel = document.createElement("div");
+        numberLabel.className = "white_text";
+        numberLabel.style.width = "100%";
+        numberLabel.style.marginRight = "10px";
+        numberLabel.textContent = `Реплика №${replicaCount}`;
+
+
+        number_line.appendChild(numberLabel);
+
+        if (replicaCount > 1) {
+            const btnDelete = document.createElement("button");
+            btnDelete.type = "button";
+            btnDelete.className = "white_text";
+            btnDelete.style.backgroundColor = "#d15959"
+            btnDelete.style.border = "2px solid rgb(255 160 160)"
+            btnDelete.style.borderRadius = "6px"
+            btnDelete.style.color = "white"
+            btnDelete.style.width = "100px"
+            btnDelete.textContent = "Удалить";
+            btnDelete.type = "button";
+            btnDelete.addEventListener("click", () => {
+                container.removeChild(row);
+                updateReplicaNumbers();
+            });
+            number_line.appendChild(btnDelete);
+        }
+
+
+        row.appendChild(number_line);
+        row.appendChild(inputs);
+
+
+        const select = document.createElement("select");
+        select.className = "selector white_text";
+        select.id = "replica-select";
+
+        // Получаем имена выбранных персонажей
+        const selectedNames = allCharacterSelectors
+            .map((sel) => sel.value)
+            .filter((v) => v !== "");
+
+        if (selectedNames.length === 0) {
+            const option = document.createElement("option");
+            option.selected = true;
+            option.textContent = "Персонаж";
+            select.appendChild(option);
+        } else {
+            selectedNames.forEach((name) => {
+                const option = document.createElement("option");
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+            });
+            select.value = selectedNames[0];
+        }
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "placeholder white_text";
+        input.placeholder = "Введите реплику";
+        input.id = "replica-input";
+
+        inputs.appendChild(select);
+        inputs.appendChild(input);
+
+
+        container.appendChild(row);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function updateReplicaNumbers() {
+        const rows = document.querySelectorAll("#replica-container .replica-row");
+        rows.forEach((row, index) => {
+            const label = row.querySelector("div.white_text");
+            label.textContent = `Реплика №${index + 1}`;
+            row.dataset.index = index;
+        });
+        replicaCount = rows.length;
+    }
+
+
+    // Кнопка добавления реплики
+    document.getElementById("add-replica").addEventListener("click", () => {
+        if (replicaCount >= 100) {
+            alert("Нельзя добавить больше 100 реплик.");
+            return;
+        }
+        createReplicaRow();
+    });
+    // Обновлять имена в репликах при смене выбора персонажей сверху
+    // слушаем изменения всех селектов сверху
+    document.getElementById("characterSelectors").addEventListener("change", () => {
+        updateReplicaCharacterOptions();
+    });
+    // Начальное скрытие/показ в зависимости от ручного режима
+    function updateFields() {
+        const manual = document.getElementById("manualMode").checked;
+        const toggleBlock = (id, show) => {
+            const el = document.getElementById(id);
+            if (!el) return; // Проверка на существование элемента
+
+            if (show) el.classList.remove("hidden");
+            else el.classList.add("hidden");
+        };
+
+        toggleBlock("scenario-group", manual);
+        toggleBlock("style-group", !manual);
+        toggleBlock("number-sentences-group", !manual);
+        toggleBlock("content-group", !manual);
+    }
+
+    document.getElementById("manualMode").addEventListener("change", () => {
+        updateFields();
+    });
+    updateFields();
+
+    function updateReplicaCharacterSelectors() {
+        const selectedNames = allCharacterSelectors
+            .map(sel => sel.options[sel.selectedIndex]?.textContent)
+            .filter(name => name && name !== "-- Выберите персонажа --");
+
+        const rows = document.querySelectorAll("#replica-container .replica-row");
+        rows.forEach(row => {
+            const select = row.querySelector("select");
+            const currentValue = select.value;
+            select.innerHTML = "";
+
+            if (selectedNames.length === 0) {
+                const option = document.createElement("option");
+                option.disabled = true;
+                option.selected = true;
+                option.textContent = "Выберите персонажей наверху";
+                select.appendChild(option);
+                select.disabled = true;
+            } else {
+                selectedNames.forEach(name => {
+                    const option = document.createElement("option");
+                    option.value = name;
+                    option.textContent = name;
+                    select.appendChild(option);
+                });
+                select.disabled = false;
+                // Если старое значение существует среди новых — оставить, иначе выбрать первое
+                if (selectedNames.includes(currentValue)) {
+                    select.value = currentValue;
+                } else {
+                    select.value = selectedNames[0];
+                }
+            }
+        });
+    }
+
+    function getRandomTrackIndex(excludeIndex) {
+        if (radioTracks.length <= 1) return 0;
+
+        let newIndex;
+        do {
+            newIndex = Math.floor(Math.random() * radioTracks.length);
+        } while (newIndex === excludeIndex && radioTracks.length > 1);
+
+        return newIndex;
+    }
+
+    function checkForDuplicateCharacters() {
+        const selectedValues = [];
+        let hasDuplicates = false;
+
+        allCharacterSelectors.forEach((select) => {
+            const value = select.value;
+            if (value === "") return;
+
+            if (selectedValues.includes(value)) {
+                select.classList.add("duplicate-error");
+                hasDuplicates = true;
+            } else {
+                select.classList.remove("duplicate-error");
+                selectedValues.push(value);
+            }
+        });
+
+        return hasDuplicates;
+    }
+
+    // Создать JSON
+    function createJson() {
+        const manual = document.getElementById("manualMode").checked;
+        if (checkForDuplicateCharacters()) {
+            alert("Исправьте дублирующихся персонажей!");
+            return;
+        }
+        // Проверка выбора сцены
+        const sceneSelector = document.getElementById("scene_selector");
+        if (sceneSelector.value === "") {
+            alert("Выберите сцену!");
+            return;
+        }
+        const scene = scenes[sceneSelector.value];
+
+        // Проверка выбора персонажей
+        const charactersList = allCharacterSelectors
+            .map((sel) => sel.value)
+            .filter((v) => v !== "");
+
+        // Проверяем что выбраны ВСЕ персонажи для сцены
+        if (charactersList.length !== scene.characters.length) {
+            const missingCount = scene.characters.length - charactersList.length;
+            alert(`Выберите персонажей для всех ролей! Осталось выбрать: ${missingCount}`);
+            return;
+        }
+
+        if (manual) {
+            const scenarioText = Array.from(document.querySelectorAll("#replica-container .replica-row"))
+                .map((row) => {
+                    const ch = row.querySelector("select").value;
+                    const txt = row.querySelector("input").value.trim();
+                    return txt ? `(${ch}) ${txt}` : null;
+                })
+                .filter(Boolean)
+                .join("\n");
+
+            if (!scenarioText) {
+                alert("Введите хотя бы одну реплику");
+                return;
+            }
+
+            const data = {
+                user: document.getElementById("user_name").value.trim(),
+                scene: scenes[document.getElementById("scene_selector").value].name,
+                characters: charactersList,
+                content: document.getElementById("content").value,
+                scenario: scenarioText,
+                style_image: document.getElementById("style-image").value,
+                manual: true,
+            };
+            copyToClipboard(JSON.stringify(data, null, 2));
+        } else {
+
+            if (document.getElementById("content").value === "") {
+                alert("Введите тему!");
+                return;
+            }
+
+
+
+            const data = {
+                user: document.getElementById("user_name").value.trim(),
+                scene: scenes[document.getElementById("scene_selector").value].name,
+                characters: charactersList,
+                content: document.getElementById("content").value,
+                scenario: "",
+                style: document.getElementById("style").value,
+                style_image: document.getElementById("style-image").value,
+                manual: false,
+            };
+            copyToClipboard(JSON.stringify(data, null, 2));
+        }
+    }
+
+    document.getElementById("collect_url").onclick = createJson;
+
+    async function copyToClipboard(text) {
+        try {
+            await navigator.clipboard.writeText(text);
+            alert("JSON скопирован в буфер обмена!");
+        } catch {
+            alert("Не удалось скопировать в буфер обмена.");
+        }
     }
 </script>
-
-
 </body>
 </html>

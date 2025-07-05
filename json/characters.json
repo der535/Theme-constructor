@@ -1,26 +1,32 @@
 [
   {
     "id": 1,
+    "image": "images/Characters/Book_bro.png",
     "name": "Book bro"
   },
   {
     "id": 2,
+    "image": "images/Characters/Karatist.png",
     "name": "Karatist"
   },
   {
     "id": 3,
+    "image": "images/Characters/Minecraft_Steve.png",
     "name": "Minecraft Steve"
   },
   {
     "id": 4,
+    "image": "images/Characters/Mr_White.png",
     "name": "Mr. White"
   },
   {
     "id": 5,
+    "image": "images/Characters/Nuggets.png",
     "name": "Nuggets"
   },
   {
     "id": 6,
+    "image": "images/Characters/Neko_ark.png",
     "name": "Neko ark"
   }
 ]

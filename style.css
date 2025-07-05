@@ -5,7 +5,7 @@
     --accent-dark: #4a8db0;
     --success-color: #58c477;
     --warning-color: #ff9e57;
-    --text-primary: #eaeaea;
+    --text-primary: #ffffff;
     --text-secondary: #b0b0b0;
     --border-radius: 12px;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -87,6 +87,7 @@ body {
 }
 
 .selector {
+    cursor: pointer;
     width: 100%;
     padding: 12px 15px;
     border: 2px solid #333;
@@ -150,10 +151,9 @@ body {
     margin-left: 4px;
 }
 
-
 .animated-toggle {
     max-height: 1000px;  /* Достаточно большое значение */
-    overflow: hidden;
+
     transition:
             max-height 0.4s ease-in-out,
             opacity 0.4s ease-in-out,
@@ -166,6 +166,7 @@ body {
 }
 
 .animated-toggle.hidden {
+    overflow: hidden;
     max-height: 0;
     opacity: 0;
     margin-bottom: 0;
@@ -180,6 +181,153 @@ body {
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
+
+#replica-container {
+    max-height: 300px; /* высота по вкусу */
+    overflow-y: auto;
+    padding-right: 8px; /* чтобы не резало текст scrollbar'ом */
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* отступы между репликами */
+}
+#replica-container {
+    margin: 10px 0;
+}
+.replica-row {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin: 5px;
+    border-radius: 4px;
+    padding: 10px;
+}
+.replica-row select,
+.replica-row input[type="text"] {
+    flex: 1;
+    padding: 10px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 2px solid #454545;
+    margin-top: 7px;
+    color: white;
+}
+
+
+#add-replica {
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 5px;
+    background-color: #4e854d;
+    border: 2px solid #86b385;
+    border-radius: 5px;
+    color: white;
+}
+
+
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.slider-value {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#number_sentences_slider {
+    flex-grow: 1;
+    height: 8px;
+    background: #555;
+    border-radius: 4px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+#scene-preview-img{
+    place-self: center;
+    display: block;
+    border-radius: 8px;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.character-avatar{
+    width: 100%;
+    height: 300px;
+    max-width: 100%;
+    display: block;
+    object-fit: contain;
+    margin-top: 6px;
+    border: 2px solid #303030;
+    border-radius: 8px;
+}
+
+/* Добавьте в style.css */
+.required-missing {
+    border: 2px solid red !important;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+#radio-container{
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#now-playing{
+    width: 100%;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 6px;
+}
+
+#audio-player {
+    width: 100%;
+    margin-top: 10px;
+    height: 40px;
+}
+
+.radio-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.simpler_center_text{
+    text-align: center;
+}
+
+.radio-button {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#replica-input{
+    height: 35px !important;
+    min-height: 35px !important;
+}
+
 
 #manualMode:checked {
     animation: checkmark-pulse 0.3s ease;
@@ -225,7 +373,7 @@ body {
 }
 
 #collect_url {
-    padding: 12px 30px;
+    padding: 12px 25px;
     background: var(--accent-color);
     color: white;
     border: none;
@@ -234,7 +382,27 @@ body {
     font-weight: 600;
     font-size: 16px;
     transition: all 0.3s ease;
-    width: auto;
+    width: 300px;
+    display: inline-block;
+}
+
+#result{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+#reset_form {
+    padding: 12px 25px;
+    background: #d15e5e;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    width: 300px;
     display: inline-block;
 }
 
@@ -263,6 +431,65 @@ body {
     gap: 15px;
     justify-content: center;
 }
+
+
+
+/* From Uiverse.io by SmookyDev */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-family: "Arial", sans-serif;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltiptext {
+    box-shadow: var(--shadow);
+    user-select: none;
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    /*top: 70%;*/
+    /*left: 50%;*/
+    margin: 5px -190px 0px -190px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+    user-select: none;
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+}
+
+.tooltip .icon {
+    user-select: none;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+}
+
 
 #premium_queue, #free_queue, #telegramm_button {
     padding: 12px 25px;
@@ -334,6 +561,130 @@ body {
     font-style: italic;
     color: #ff5757;
 }
+
+/*  -------------- ЧЕК БОКС -------------    */
+.checkbox-wrapper-4 * {
+    box-sizing: border-box;
+    color: white;
+}
+
+.checkbox-wrapper-4 .cbx {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.checkbox-wrapper-4 .cbx:not(:last-child) {
+    margin-right: 6px;
+}
+
+.checkbox-wrapper-4 .cbx:hover {
+    background: rgba(0,119,255,0.06);
+}
+
+.checkbox-wrapper-4 .cbx span {
+    float: left;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+
+.checkbox-wrapper-4 .cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    transform: scale(1);
+    border: 1px solid #cccfdb;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 1px rgba(0,16,75,0.05);
+}
+
+.checkbox-wrapper-4 .cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+}
+
+.checkbox-wrapper-4 .cbx span:last-child {
+    padding-left: 8px;
+    line-height: 18px;
+}
+
+.checkbox-wrapper-4 .cbx:hover span:first-child {
+    border-color: #07f;
+}
+
+.checkbox-wrapper-4 .inp-cbx {
+    position: absolute;
+    visibility: hidden;
+}
+
+.checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child {
+    background: #07f;
+    border-color: #07f;
+    animation: wave-4 0.4s ease;
+}
+
+.checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child svg {
+    stroke-dashoffset: 0;
+}
+
+.checkbox-wrapper-4 .inline-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+@media screen and (max-width: 640px) {
+    .checkbox-wrapper-4 .cbx {
+        width: 100%;
+        display: inline-block;
+    }
+}
+
+@-moz-keyframes wave-4 {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+@-webkit-keyframes wave-4 {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+@-o-keyframes wave-4 {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+@keyframes wave-4 {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+/*  -------------- ЧЕК БОКС -------------    */
+
 
 @media (max-width: 768px) {
     body {

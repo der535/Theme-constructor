@@ -2,11 +2,19 @@
   {
     "name": "News",
     "characters": ["Ведущий"],
-    "preview": "images/news_preview.jpg"
+    "image": "images/news_preview.png",
+    "picture_style": true
   },
   {
     "name": "Lecture",
     "characters": ["Ведущий"],
-    "preview": "images/lecture_preview.jpg"
+    "image": "images/lecture_preview.png",
+    "picture_style": true
+  },
+  {
+    "name": "Performance on stage",
+    "characters": ["Выступающий", "Активный зритель"],
+    "image": "images/Performance_on_stage_preview.png",
+    "picture_style": false
   }
 ]
