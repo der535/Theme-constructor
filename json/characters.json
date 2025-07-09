@@ -1,32 +1,32 @@
 [
   {
     "id": 1,
-    "image": "images/Characters/Book_bro.png",
+    "image": "images/Characters/Book_bro.webp",
     "name": "Book bro"
   },
   {
     "id": 2,
-    "image": "images/Characters/Karatist.png",
+    "image": "images/Characters/Karatist.webp",
     "name": "Karatist"
   },
   {
     "id": 3,
-    "image": "images/Characters/Minecraft_Steve.png",
+    "image": "images/Characters/Minecraft_Steve.webp",
     "name": "Minecraft Steve"
   },
   {
     "id": 4,
-    "image": "images/Characters/Mr_White.png",
+    "image": "images/Characters/Mr_White.webp",
     "name": "Mr. White"
   },
   {
     "id": 5,
-    "image": "images/Characters/Nuggets.png",
+    "image": "images/Characters/Nuggets.webp",
     "name": "Nuggets"
   },
   {
     "id": 6,
-    "image": "images/Characters/Neko_ark.png",
+    "image": "images/Characters/Neko_ark.webp",
     "name": "Neko ark"
   }
 ]
