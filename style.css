@@ -75,6 +75,28 @@ body {
     font-size: 16px;
 }
 
+.voice-player {
+    margin-top: 5px;
+    width: 100%;
+    max-width: 200px;
+
+}
+
+audio#voiceaudio {
+    height: 40px;
+    width: 324px;
+    margin-top: 10px;
+}
+
+.character-voice {
+    width: 100%;
+    max-width: 200px;
+    margin-top: 5px;
+    border-radius: 10px;
+    background: #333;
+    padding: 5px;
+}
+
 .center_text {
     font-family: sans-serif;
     text-align: center;

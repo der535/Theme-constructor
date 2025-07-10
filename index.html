@@ -287,6 +287,11 @@
         return character ? character.image : 'images/question_mark.png';
     }
 
+    function getCharacterVoice(name) {
+        const character = characters.find(c => c.name === name);
+        return character ? character.voice_sample : '';
+    }
+
     function updateReplicaAvatar(select, avatar) {
         const charName = select.value;
         avatar.src = charName ? getCharacterImage(charName) : 'images/question_mark.png';
@@ -493,6 +498,8 @@
             select.value = '';
             const avatar = select.nextElementSibling;
             if (avatar && avatar.classList.contains('character-avatar')) avatar.style.display = 'none';
+            const voicePlayer = select.parentNode.querySelector('.voice-player');
+            if (voicePlayer) voicePlayer.style.display = 'none';
         });
         document.getElementById('manualMode').checked = false;
         updateFields();
@@ -537,6 +544,7 @@
                 option.value = ch.name;
                 option.textContent = ch.name;
                 option.dataset.image = ch.image;
+                option.dataset.voice = ch.voice_sample;
                 select.appendChild(option);
             });
             const avatar = document.createElement("img");
@@ -544,14 +552,24 @@
             avatar.src = "";
             avatar.alt = "Аватар персонажа";
             avatar.style.display = "none";
+
+            const voiceContainer = document.createElement("div");
+            voiceContainer.className = "voice-player";
+            voiceContainer.style.display = "none";
+            const audio = document.createElement("audio");
+            audio.controls = true;
+            audio.preload = "metadata";
+            audio.id = "voiceaudio";
+            voiceContainer.appendChild(audio);
+
             select.addEventListener("change", function() {
                 allCharacterSelectors.forEach(sel => sel.classList.remove("duplicate-error"));
                 if (checkForDuplicateCharacters()) {
                     alert("Один и тот же персонаж не может быть выбран дважды!");
                     this.value = "";
                     this.classList.remove("duplicate-error");
-                    const avatar = this.nextElementSibling;
-                    if (avatar && avatar.classList.contains("character-avatar")) avatar.style.display = "none";
+                    avatar.style.display = "none";
+                    voiceContainer.style.display = "none";
                     return;
                 }
                 if (this.value) {
@@ -560,11 +578,20 @@
                         avatar.src = character.image;
                         avatar.style.display = "block";
                     } else avatar.style.display = "none";
-                } else avatar.style.display = "none";
+
+                    if (character && character.voice_sample) {
+                        audio.src = character.voice_sample;
+                        voiceContainer.style.display = "block";
+                    } else voiceContainer.style.display = "none";
+                } else {
+                    avatar.style.display = "none";
+                    voiceContainer.style.display = "none";
+                }
                 updateReplicaCharacterOptions();
             });
             selectorContainer.appendChild(select);
             selectorContainer.appendChild(avatar);
+            selectorContainer.appendChild(voiceContainer);
             div.appendChild(label);
             div.appendChild(selectorContainer);
             container.appendChild(div);

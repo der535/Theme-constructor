@@ -2,31 +2,37 @@
   {
     "id": 1,
     "image": "images/Characters/Book_bro.webp",
-    "name": "Book bro"
+    "name": "Book bro",
+    "voice_sample": "voices/Book bro.wav"
   },
   {
     "id": 2,
     "image": "images/Characters/Karatist.webp",
-    "name": "Karatist"
+    "name": "Karatist",
+    "voice_sample": "voices/Karatist.wav"
   },
   {
     "id": 3,
     "image": "images/Characters/Minecraft_Steve.webp",
-    "name": "Minecraft Steve"
+    "name": "Minecraft Steve",
+    "voice_sample": "voices/Minecraft steve.wav"
   },
   {
     "id": 4,
     "image": "images/Characters/Mr_White.webp",
-    "name": "Mr. White"
+    "name": "Mr. White",
+    "voice_sample": "voices/Mr White.wav"
   },
   {
     "id": 5,
     "image": "images/Characters/Nuggets.webp",
-    "name": "Nuggets"
+    "name": "Nuggets",
+    "voice_sample": "voices/Nuggets.wav"
   },
   {
     "id": 6,
     "image": "images/Characters/Neko_ark.webp",
-    "name": "Neko ark"
+    "name": "Neko ark",
+    "voice_sample": "voices/Neko ark.wav"
   }
 ]
